@@ -37,6 +37,8 @@ GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 r
 - Pages 網頁讀取 `latest.json` 顯示最新名單。
 - 本機開發時，網頁優先呼叫 `/api/run`，可以按日期即時重跑。
 
+注意：private repo 是否能啟用 GitHub Pages 取決於 GitHub 帳號/組織方案。如果 GitHub 回覆 `Your current plan does not support GitHub Pages for this repository`，代表 repo 可以維持 private，但 Pages 無法啟用；可改成 public repo、升級方案，或改部署到 Vercel / Netlify。
+
 先測試產生報告：
 
 ```bash
