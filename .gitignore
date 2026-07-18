@@ -1,0 +1,8 @@
+.cache/
+__pycache__/
+.env
+watchlist_*.txt
+watchlist_*.csv
+*.log
+*.err
+.DS_Store

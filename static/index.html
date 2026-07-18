@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>台股 K 線隔日標的 Demo</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <aside class="control-panel" aria-label="篩選流程控制">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <div>
+              <p class="eyebrow">TWSE / TPEx demo</p>
+              <h1>台股隔日標的系統</h1>
+            </div>
+          </div>
+
+          <form id="run-form" class="run-form">
+            <label for="date">分析日期</label>
+            <input id="date" name="date" type="date">
+
+            <label for="top">顯示筆數</label>
+            <select id="top" name="top">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="30">30</option>
+              <option value="50">50</option>
+            </select>
+
+            <button type="submit" id="run-button">
+              <span class="button-icon" aria-hidden="true">▶</span>
+              跑分析
+            </button>
+          </form>
+
+          <ol class="pipeline" aria-label="分析流程">
+            <li><span>01</span>爬官方每日行情</li>
+            <li><span>02</span>取成交量 / 漲幅 / 跌幅 Top 100</li>
+            <li><span>03</span>補歷史日線計算 MA / MACD / RSI</li>
+            <li><span>04</span>套 K 線型態並排序</li>
+          </ol>
+
+          <section class="score-rules" aria-labelledby="score-rules-title">
+            <h2 id="score-rules-title">分數規則</h2>
+            <dl>
+              <div>
+                <dt>+1</dt>
+                <dd>收盤站上 MA20</dd>
+              </div>
+              <div>
+                <dt>+1</dt>
+                <dd>MACD 柱狀體比前一日轉強</dd>
+              </div>
+              <div>
+                <dt>+1</dt>
+                <dd>RSI 介於 40-70</dd>
+              </div>
+              <div>
+                <dt>+1</dt>
+                <dd>紅 K 且成交量大於近 5 日均量 1.5 倍</dd>
+              </div>
+              <div>
+                <dt>+2</dt>
+                <dd>錘子線、陽包陰、曙光初現、晨星、大紅K</dd>
+              </div>
+              <div class="deduct">
+                <dt>-1</dt>
+                <dd>RSI 大於等於 80</dd>
+              </div>
+              <div class="deduct">
+                <dt>-2</dt>
+                <dd>陰包陽、烏雲罩頂、黃昏星、大綠K</dd>
+              </div>
+            </dl>
+          </section>
+
+          <figure class="rule-card">
+            <img src="../IMG_20260615_003247_351.jpg" alt="K 線常見型態大全">
+            <figcaption>K 線規則參考</figcaption>
+          </figure>
+        </aside>
+
+        <section class="results" aria-live="polite">
+          <header class="results-header">
+            <div>
+              <p class="eyebrow">Next session candidates</p>
+              <h2>隔天觀察名單</h2>
+            </div>
+            <div class="status-pill" id="status">尚未執行</div>
+          </header>
+
+          <div class="summary-strip">
+            <div>
+              <span class="metric-label">資料日</span>
+              <strong id="metric-date">--</strong>
+            </div>
+            <div>
+              <span class="metric-label">候選池</span>
+              <strong id="metric-count">--</strong>
+            </div>
+            <div>
+              <span class="metric-label">最高分</span>
+              <strong id="metric-score">--</strong>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>排名</th>
+                  <th>股票</th>
+                  <th>市場</th>
+                  <th>分數</th>
+                  <th>收盤</th>
+                  <th>漲跌</th>
+                  <th>成交量</th>
+                  <th>訊號</th>
+                </tr>
+              </thead>
+              <tbody id="result-body">
+                <tr class="empty-row">
+                  <td colspan="8">按「跑分析」開始。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
