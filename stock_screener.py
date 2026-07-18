@@ -453,10 +453,10 @@ def write_csv(path: Path, scored: list[ScoredStock]) -> None:
             writer.writerow([c.symbol, c.name, c.market, item.score, c.close, c.change_pct, c.volume, "；".join(item.reasons), "；".join(item.patterns)])
 
 
-def run_analysis(requested: dt.date, top: int = 20) -> tuple[dt.date, list[ScoredStock], str]:
+def run_analysis(requested: dt.date, top: int = 20, history_days: int = 45) -> tuple[dt.date, list[ScoredStock], str]:
     date, rows = previous_trading_day(requested)
     candidates = pick_ranked_candidates(rows)
-    histories = history_for_symbols({c.symbol for c in candidates}, date)
+    histories = history_for_symbols({c.symbol for c in candidates}, date, days=history_days)
     scored = [score_stock(histories.get(c.symbol, [c])) for c in candidates]
     report = build_report(str(date), scored, top)
     return date, scored, report

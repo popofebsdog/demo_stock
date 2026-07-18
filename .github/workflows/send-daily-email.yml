@@ -16,6 +16,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Restore market data cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: market-data-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            market-data-${{ runner.os }}-
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Send top 50 watchlist email

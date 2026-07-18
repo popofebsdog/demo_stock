@@ -41,7 +41,7 @@ def main() -> int:
     now = dt.datetime.now(ZoneInfo("Asia/Taipei"))
     today = now.date()
     top = 50
-    date, _scored, report = run_analysis(today, top=top)
+    date, _scored, report = run_analysis(today, top=top, history_days=35)
     send_email(f"台股每日自動觀察名單 {date}", report)
     append_send_log(Path("static/send-log.json"), str(date), top, os.getenv("EMAIL_TO", ""), now.isoformat(timespec="seconds"))
     print(f"sent daily email for {date}")
