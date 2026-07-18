@@ -9,7 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from stock_screener import run_analysis, scored_records
+from stock_screener import load_env_file, require_env, run_analysis, scored_records, send_email
 
 
 ROOT = Path(__file__).resolve().parent
@@ -31,6 +31,13 @@ class DemoHandler(BaseHTTPRequestHandler):
             return
         self.serve_file(parsed.path)
 
+    def do_POST(self) -> None:
+        parsed = urlparse(self.path)
+        if parsed.path == "/api/email":
+            self.handle_email()
+            return
+        self.send_error(404)
+
     def handle_run(self, query: str) -> None:
         params = parse_qs(query)
         date_text = params.get("date", [""])[0]
@@ -47,6 +54,23 @@ class DemoHandler(BaseHTTPRequestHandler):
                 "report": report,
             }
             self.send_json(payload)
+        except Exception as exc:
+            self.send_json({"error": str(exc)}, status=500)
+
+    def handle_email(self) -> None:
+        try:
+            length = min(int(self.headers.get("Content-Length", "0")), 4096)
+            payload = json.loads(self.rfile.read(length).decode("utf-8")) if length else {}
+            token = str(payload.get("token", ""))
+            if not email_token_is_valid(token):
+                self.send_json({"error": "email token invalid or not configured"}, status=401)
+                return
+            date_text = str(payload.get("date", ""))
+            top = min(max(int(payload.get("top", 20)), 1), 50)
+            requested = dt.date.fromisoformat(date_text) if date_text else dt.date.today()
+            date, _scored, report = run_analysis(requested, top)
+            send_email(f"台股隔日觀察名單 {date}", report)
+            self.send_json({"ok": True, "date": str(date)})
         except Exception as exc:
             self.send_json({"error": str(exc)}, status=500)
 
@@ -88,7 +112,16 @@ class DemoHandler(BaseHTTPRequestHandler):
         return
 
 
+def email_token_is_valid(provided: str) -> bool:
+    try:
+        expected = require_env("EMAIL_SEND_TOKEN")
+    except RuntimeError:
+        return False
+    return bool(provided) and provided == expected
+
+
 def main() -> int:
+    load_env_file()
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", "8000"))
     server = ThreadingHTTPServer((host, port), DemoHandler)

@@ -127,6 +127,12 @@ button {
   cursor: pointer;
 }
 
+.secondary-button {
+  color: var(--ink);
+  background: #fbfaf6;
+  border-color: var(--line);
+}
+
 button:disabled {
   cursor: wait;
   opacity: 0.65;

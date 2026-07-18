@@ -47,6 +47,7 @@ GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 r
 - `Procfile`：Railway / Heroku 類平台可用的啟動命令。
 - `requirements.txt`：Python 依賴。
 - `demo_server.py`：會讀平台提供的 `PORT`，並提供 `/api/run` 和 `/api/health`。
+- `/api/email`：用 SMTP 寄出觀察名單，需要 `EMAIL_SEND_TOKEN` 保護碼。
 
 Render 部署流程：
 
@@ -54,6 +55,7 @@ Render 部署流程：
 2. 連接 GitHub repo `popofebsdog/demo_stock`。
 3. Render 會讀 `render.yaml`。
 4. 部署完成後打開 Render URL，就可以在網頁上挑日期即時跑分析。
+5. 若要啟用 Email，在 Render service 的 Environment 加上 `SMTP_HOST`、`SMTP_PORT`、`SMTP_USER`、`SMTP_PASSWORD`、`EMAIL_FROM`、`EMAIL_TO`、`EMAIL_SEND_TOKEN`。
 
 先測試產生報告：
 
@@ -81,6 +83,8 @@ python3 stock_screener.py --send-email
 ```
 
 Gmail 要使用「應用程式密碼」，不要用登入密碼。
+
+網頁上的「寄 Email」會呼叫 `/api/email`，需要輸入 `.env` 或 Render 環境變數中的 `EMAIL_SEND_TOKEN`。這個 token 是為了避免公開網站被陌生人拿來亂寄信。
 
 ## 每天 15:30 自動執行
 

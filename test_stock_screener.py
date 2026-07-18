@@ -1,4 +1,7 @@
 import unittest
+from unittest.mock import patch
+
+from demo_server import email_token_is_valid
 
 from stock_screener import (
     Candle,
@@ -70,6 +73,13 @@ class StockScreenerTest(unittest.TestCase):
 
         self.assertEqual(records[0]["symbol"], "2330")
         self.assertIsInstance(records[0]["reasons"], list)
+
+    def test_email_token_requires_configured_secret(self):
+        with patch.dict("os.environ", {}, clear=True):
+            self.assertFalse(email_token_is_valid("anything"))
+        with patch.dict("os.environ", {"EMAIL_SEND_TOKEN": "secret"}, clear=True):
+            self.assertTrue(email_token_is_valid("secret"))
+            self.assertFalse(email_token_is_valid("wrong"))
 
 
 if __name__ == "__main__":

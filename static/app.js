@@ -1,6 +1,8 @@
 const form = document.querySelector("#run-form");
 const dateInput = document.querySelector("#date");
 const button = document.querySelector("#run-button");
+const emailButton = document.querySelector("#email-button");
+const emailTokenInput = document.querySelector("#email-token");
 const statusEl = document.querySelector("#status");
 const bodyEl = document.querySelector("#result-body");
 const metricDate = document.querySelector("#metric-date");
@@ -25,6 +27,31 @@ form.addEventListener("submit", async (event) => {
     bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
   } finally {
     button.disabled = false;
+  }
+});
+
+emailButton.addEventListener("click", async () => {
+  emailButton.disabled = true;
+  statusEl.textContent = "寄送中";
+  try {
+    const payload = {
+      date: dateInput.value,
+      top: Number(document.querySelector("#top").value),
+      token: emailTokenInput.value,
+    };
+    const response = await fetch("api/email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "Email 寄送失敗");
+    statusEl.textContent = `已寄出 ${result.date}`;
+  } catch (error) {
+    statusEl.textContent = "寄送失敗";
+    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
+  } finally {
+    emailButton.disabled = false;
   }
 });
 
