@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   send:
@@ -34,3 +36,8 @@ jobs:
           git add static/send-log.json
           git diff --cached --quiet || git commit -m "chore: update send log"
           git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4
