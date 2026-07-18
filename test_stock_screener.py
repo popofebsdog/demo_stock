@@ -5,6 +5,7 @@ from tempfile import TemporaryDirectory
 from send_daily_email import append_send_log, mask_email
 from stock_screener import (
     Candle,
+    build_html_report,
     build_report,
     candlestick_patterns,
     parse_number,
@@ -65,6 +66,16 @@ class StockScreenerTest(unittest.TestCase):
 
         self.assertIn("台股隔日觀察名單", report)
         self.assertIn("2330 台積電", report)
+
+    def test_build_html_report_contains_table(self):
+        item = score_stock([Candle("2026-07-17", "2330", "台積電", "TWSE", 100, 110, 99, 108, 5000, 8)])
+
+        html = build_html_report("2026-07-17", [item])
+
+        self.assertIn("<table", html)
+        self.assertIn("2330", html)
+        self.assertIn("台積電", html)
+        self.assertIn("分數", html)
 
     def test_scored_records_are_json_ready(self):
         item = score_stock([Candle("2026-07-17", "2330", "台積電", "TWSE", 100, 110, 99, 108, 5000, 8)])

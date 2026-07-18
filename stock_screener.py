@@ -5,6 +5,7 @@ import argparse
 import csv
 import datetime as dt
 import email.message
+import html
 import http.client
 import json
 import os
@@ -243,6 +244,64 @@ def build_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 20) -
     return "\n".join(lines)
 
 
+def build_html_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 50) -> str:
+    rows = sorted(scored, key=lambda item: (item.score, item.candle.volume), reverse=True)[:max_rows]
+    body_rows = []
+    for idx, item in enumerate(rows, 1):
+        c = item.candle
+        pct = "--" if c.change_pct is None else f"{c.change_pct:.2f}%"
+        reasons = "；".join(item.reasons) if item.reasons else "無明顯加分訊號"
+        body_rows.append(
+            "<tr>"
+            f"<td>{idx}</td>"
+            f"<td><strong>{html.escape(c.symbol)}</strong><br>{html.escape(c.name)}</td>"
+            f"<td>{html.escape(c.market)}</td>"
+            f"<td><strong>{item.score}</strong></td>"
+            f"<td>{c.close:g}</td>"
+            f"<td>{html.escape(pct)}</td>"
+            f"<td>{c.volume:,}</td>"
+            f"<td>{html.escape(reasons)}</td>"
+            "</tr>"
+        )
+    if not body_rows:
+        body_rows.append('<tr><td colspan="8">沒有可用資料</td></tr>')
+    return f"""<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif; color: #17211b; }}
+    .note {{ color: #65726c; font-size: 13px; }}
+    table {{ border-collapse: collapse; width: 100%; max-width: 1100px; }}
+    th, td {{ border: 1px solid #d8ded7; padding: 8px 10px; text-align: left; vertical-align: top; font-size: 13px; }}
+    th {{ background: #eef2ee; }}
+    td:nth-child(1), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {{ white-space: nowrap; }}
+  </style>
+</head>
+<body>
+  <h2>台股每日自動觀察名單 {html.escape(date)}</h2>
+  <p class="note">資料來源：TWSE / TPEx 公開資料；僅供研究，不是投資建議。</p>
+  <table>
+    <thead>
+      <tr>
+        <th>排名</th>
+        <th>股票</th>
+        <th>市場</th>
+        <th>分數</th>
+        <th>收盤</th>
+        <th>漲跌</th>
+        <th>成交量</th>
+        <th>訊號</th>
+      </tr>
+    </thead>
+    <tbody>
+      {''.join(body_rows)}
+    </tbody>
+  </table>
+</body>
+</html>"""
+
+
 def scored_records(scored: Iterable[ScoredStock], max_rows: int = 20) -> list[dict[str, object]]:
     rows = sorted(scored, key=lambda item: (item.score, item.candle.volume), reverse=True)
     records: list[dict[str, object]] = []
@@ -400,7 +459,7 @@ def history_for_symbols(symbols: set[str], end: dt.date, days: int = 45) -> dict
     return {symbol: candles[-days:] for symbol, candles in history.items() if candles}
 
 
-def send_email(subject: str, body_text: str) -> None:
+def send_email(subject: str, body_text: str, body_html: str | None = None) -> None:
     host = require_env("SMTP_HOST")
     port = int(os.getenv("SMTP_PORT", "587"))
     user = require_env("SMTP_USER")
@@ -413,6 +472,8 @@ def send_email(subject: str, body_text: str) -> None:
     msg["From"] = sender
     msg["To"] = ", ".join(recipients)
     msg.set_content(body_text)
+    if body_html:
+        msg.add_alternative(body_html, subtype="html")
 
     context = ssl.create_default_context()
     if port == 465:
