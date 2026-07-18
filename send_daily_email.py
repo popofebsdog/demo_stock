@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import datetime as dt
 import json
 import os
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
-from stock_screener import load_env_file, run_analysis, send_email
+from stock_screener import load_env_file, send_email
 
 
 def append_send_log(path: Path, date: str, top: int, recipient: str, sent_at: str) -> None:
@@ -38,12 +36,12 @@ def mask_email(email: str) -> str:
 
 def main() -> int:
     load_env_file()
-    now = dt.datetime.now(ZoneInfo("Asia/Taipei"))
-    today = now.date()
-    top = 50
-    date, _scored, report = run_analysis(today, top=top, history_days=35)
+    payload = json.loads(Path("static/latest.json").read_text(encoding="utf-8"))
+    date = payload["date"]
+    top = payload.get("top", 50)
+    report = payload["report"]
     send_email(f"台股每日自動觀察名單 {date}", report)
-    append_send_log(Path("static/send-log.json"), str(date), top, os.getenv("EMAIL_TO", ""), now.isoformat(timespec="seconds"))
+    append_send_log(Path("static/send-log.json"), str(date), int(top), os.getenv("EMAIL_TO", ""), payload.get("generated_at", ""))
     print(f"sent daily email for {date}")
     return 0
 

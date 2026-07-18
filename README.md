@@ -18,7 +18,7 @@
 
 這個系統分成兩條 pipeline：
 
-- 每日自動寄信 pipeline：每個台股交易日台灣時間 15:30 自動抓當天可取得的最新官方資料，只跑最新交易日一次，寄出前 50 筆觀察名單。這條線不需要人工挑日期、不需要按按鈕。
+- 每日自動寄信 pipeline：每個台股交易日台灣時間 15:20 先更新最新交易日資料，15:30 自動寄出前 50 筆觀察名單。這條線不需要人工挑日期、不需要按按鈕。
 - 日常查詢 pipeline：網站提供日期和筆數查詢，給你臨時回看某一天的分析結果，或在動態主機上即時重跑指定日期。
 
 ## 使用
@@ -39,8 +39,8 @@ http://127.0.0.1:8000
 
 GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 repo 另外提供 Pages 版本：
 
-- `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:40 觸發，更新 GitHub Pages 查詢資料。
-- `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 自動寄出前 50 筆觀察名單。
+- `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:20 觸發，更新最新交易日資料。
+- `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 讀取最新資料並自動寄出前 50 筆觀察名單。
 - `generate_static_data.py` 會跑完整分析流程並輸出 `static/data/YYYY-MM-DD.json`、`static/latest.json`、`static/dates.json`。
 - Pages 網頁可挑已產生的日期，讀取對應 JSON 顯示名單。
 - 本機開發時，網頁優先呼叫 `/api/run`，可以按日期即時重跑。
@@ -65,13 +65,18 @@ Render 部署流程：
 
 ## 每日 15:30 自動寄信
 
-正式的零人力寄信由 GitHub Actions 的 `.github/workflows/send-daily-email.yml` 負責。它會在每個週一到週五台灣時間 15:30 執行：
+正式的零人力寄信由 GitHub Actions 負責：
+
+- 15:20：`.github/workflows/update-watchlist.yml` 更新 `static/latest.json`。
+- 15:30：`.github/workflows/send-daily-email.yml` 讀取 `static/latest.json` 並寄出 Email。
+
+寄信 workflow 執行：
 
 ```bash
 python send_daily_email.py
 ```
 
-這個腳本會抓最新交易日資料、跑分析、寄出前 50 筆觀察名單。
+這個腳本不重新爬資料，只寄出 15:20 產生好的前 50 筆觀察名單，讓寄信步驟更穩定。
 
 需要在 GitHub repo 的 `Settings > Secrets and variables > Actions` 新增：
 
