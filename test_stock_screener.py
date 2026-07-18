@@ -1,8 +1,8 @@
 import unittest
-from unittest.mock import patch
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
-from demo_server import email_token_is_valid
-
+from send_daily_email import append_send_log, mask_email
 from stock_screener import (
     Candle,
     build_report,
@@ -74,12 +74,15 @@ class StockScreenerTest(unittest.TestCase):
         self.assertEqual(records[0]["symbol"], "2330")
         self.assertIsInstance(records[0]["reasons"], list)
 
-    def test_email_token_requires_configured_secret(self):
-        with patch.dict("os.environ", {}, clear=True):
-            self.assertFalse(email_token_is_valid("anything"))
-        with patch.dict("os.environ", {"EMAIL_SEND_TOKEN": "secret"}, clear=True):
-            self.assertTrue(email_token_is_valid("secret"))
-            self.assertFalse(email_token_is_valid("wrong"))
+    def test_append_send_log_masks_recipient(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "send-log.json"
+            append_send_log(path, "2026-07-17", 50, "dearbibi@hotmail.com", "2026-07-18T15:30:00+08:00")
+
+            text = path.read_text(encoding="utf-8")
+            self.assertIn("de***@hotmail.com", text)
+            self.assertNotIn("dearbibi@hotmail.com", text)
+            self.assertEqual(mask_email("a@example.com"), "a***@example.com")
 
 
 if __name__ == "__main__":

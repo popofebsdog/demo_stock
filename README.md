@@ -39,7 +39,7 @@ http://127.0.0.1:8000
 
 GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 repo 另外提供 Pages 版本：
 
-- `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:30 觸發。
+- `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:40 觸發，更新 GitHub Pages 查詢資料。
 - `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 自動寄出前 50 筆觀察名單。
 - `generate_static_data.py` 會跑完整分析流程並輸出 `static/data/YYYY-MM-DD.json`、`static/latest.json`、`static/dates.json`。
 - Pages 網頁可挑已產生的日期，讀取對應 JSON 顯示名單。
@@ -55,7 +55,6 @@ GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 r
 - `Procfile`：Railway / Heroku 類平台可用的啟動命令。
 - `requirements.txt`：Python 依賴。
 - `demo_server.py`：會讀平台提供的 `PORT`，並提供 `/api/run` 和 `/api/health`。
-- `/api/email`：用 SMTP 寄出觀察名單，需要 `EMAIL_SEND_TOKEN` 保護碼。
 
 Render 部署流程：
 
@@ -63,7 +62,6 @@ Render 部署流程：
 2. 連接 GitHub repo `popofebsdog/demo_stock`。
 3. Render 會讀 `render.yaml`。
 4. 部署完成後打開 Render URL，就可以在網頁上挑日期即時跑分析。
-5. 若要啟用網站上的測試寄送 Email，在 Render service 的 Environment 加上 `SMTP_HOST`、`SMTP_PORT`、`SMTP_USER`、`SMTP_PASSWORD`、`EMAIL_FROM`、`EMAIL_TO`、`EMAIL_SEND_TOKEN`。
 
 ## 每日 15:30 自動寄信
 
@@ -86,7 +84,7 @@ EMAIL_FROM
 EMAIL_TO
 ```
 
-這條自動寄信 pipeline 不需要 `EMAIL_SEND_TOKEN`，因為它只在 GitHub Actions 後台執行，不開放給瀏覽器呼叫。
+寄信成功後，workflow 會更新 `static/send-log.json`，前端會顯示最近寄送紀錄。
 
 先測試產生報告：
 
@@ -114,8 +112,6 @@ python3 stock_screener.py --send-email
 ```
 
 Gmail 要使用「應用程式密碼」，不要用登入密碼。
-
-網頁上的「測試寄送 Email」會呼叫 `/api/email`，需要輸入 `.env` 或 Render 環境變數中的 `EMAIL_SEND_TOKEN`。這個 token 是為了避免公開網站被陌生人拿來亂寄信。
 
 ## 每天 15:30 自動執行
 

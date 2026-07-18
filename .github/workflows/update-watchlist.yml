@@ -2,7 +2,7 @@ name: Update Taiwan stock watchlist
 
 on:
   schedule:
-    - cron: "30 7 * * 1-5"
+    - cron: "40 7 * * 1-5"
   workflow_dispatch:
 
 permissions:

@@ -1,16 +1,16 @@
 const form = document.querySelector("#run-form");
 const dateInput = document.querySelector("#date");
 const button = document.querySelector("#run-button");
-const emailButton = document.querySelector("#email-button");
-const emailTokenInput = document.querySelector("#email-token");
 const statusEl = document.querySelector("#status");
 const bodyEl = document.querySelector("#result-body");
 const metricDate = document.querySelector("#metric-date");
 const metricCount = document.querySelector("#metric-count");
 const metricScore = document.querySelector("#metric-score");
+const sendLogBody = document.querySelector("#send-log-body");
 
 dateInput.valueAsDate = new Date();
 loadDateChoices();
+loadSendLog();
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -27,31 +27,6 @@ form.addEventListener("submit", async (event) => {
     bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
   } finally {
     button.disabled = false;
-  }
-});
-
-emailButton.addEventListener("click", async () => {
-  emailButton.disabled = true;
-  statusEl.textContent = "寄送中";
-  try {
-    const payload = {
-      date: dateInput.value,
-      top: Number(document.querySelector("#top").value),
-      token: emailTokenInput.value,
-    };
-    const response = await fetch("api/email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const result = await response.json();
-    if (!response.ok) throw new Error(result.error || "Email 寄送失敗");
-    statusEl.textContent = `已寄出 ${result.date}`;
-  } catch (error) {
-    statusEl.textContent = "寄送失敗";
-    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
-  } finally {
-    emailButton.disabled = false;
   }
 });
 
@@ -72,6 +47,27 @@ async function loadAnalysis(params) {
   }
   const errorPayload = await apiResponse.json().catch(() => ({}));
   throw new Error(errorPayload.error || "找不到本機 API，也沒有 GitHub Pages 最新資料");
+}
+
+async function loadSendLog() {
+  const response = await fetch("send-log.json").catch(() => null);
+  if (!response?.ok) {
+    sendLogBody.textContent = "尚無寄送紀錄";
+    return;
+  }
+  const payload = await response.json();
+  const records = payload.records || [];
+  if (!records.length) {
+    sendLogBody.textContent = "尚無寄送紀錄";
+    return;
+  }
+  sendLogBody.innerHTML = records.slice(0, 5).map((record) => `
+    <div class="send-log-item">
+      <strong>${escapeHtml(record.date)}</strong>
+      <span>${escapeHtml(record.status)} · 前 ${record.top} 筆 · ${escapeHtml(record.recipient)}</span>
+      <time>${escapeHtml(record.sent_at)}</time>
+    </div>
+  `).join("");
 }
 
 function render(payload) {

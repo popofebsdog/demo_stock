@@ -174,7 +174,8 @@ select:focus-visible {
   font-weight: 900;
 }
 
-.score-rules {
+.score-rules,
+.send-log {
   margin: 22px 0;
   padding: 14px;
   background: #fbfaf6;
@@ -182,7 +183,8 @@ select:focus-visible {
   border-radius: 6px;
 }
 
-.score-rules h2 {
+.score-rules h2,
+.send-log h2 {
   margin-bottom: 10px;
   font-size: 16px;
 }
@@ -214,6 +216,30 @@ select:focus-visible {
 
 .score-rules .deduct dt {
   color: var(--green);
+}
+
+.send-log-body {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.send-log-item {
+  display: grid;
+  gap: 3px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+
+.send-log-item:first-child {
+  border-top: 0;
+}
+
+.send-log-item strong {
+  color: var(--ink);
+}
+
+.send-log-item time {
+  font-size: 12px;
 }
 
 .rule-card {
