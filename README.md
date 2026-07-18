@@ -1,6 +1,6 @@
 # 台股隔日觀察名單
 
-這是一個台股隔日觀察名單 demo 系統：每天抓證交所 TWSE 和櫃買 TPEx 公開行情，取前一交易日的成交量 Top 100、漲幅 Top 100、跌幅 Top 100，套用 MA / MACD / RSI / 成交量 / K 線型態規則，輸出隔天觀察名單，並可寄 Email。
+這是一個台股隔日觀察名單自動化系統：每天抓證交所 TWSE 和櫃買 TPEx 公開行情，取前一交易日的成交量 Top 100、漲幅 Top 100、跌幅 Top 100，套用 MA / MACD / RSI / 成交量 / K 線型態規則，輸出隔天觀察名單，並在 15:30 自動寄出 Email。
 
 ## 這個系統解決什麼
 
@@ -13,6 +13,13 @@
 - 可接 Email 排程，在台灣時間 15:30 收到隔天觀察名單。
 
 這不是自動下單，也不是保證獲利模型；它解決的是「每天快速整理候選股」和「用一致規則篩掉雜訊」。
+
+## 系統 Pipeline
+
+這個系統分成兩條 pipeline：
+
+- 每日自動寄信 pipeline：每個台股交易日台灣時間 15:30 自動抓當天可取得的最新官方資料，跑完整分析流程，寄出前 50 筆觀察名單。這條線不需要人工挑日期、不需要按按鈕。
+- 日常查詢 pipeline：網站提供日期和筆數查詢，給你臨時回看某一天的分析結果，或在動態主機上即時重跑指定日期。
 
 ## 使用
 
@@ -33,6 +40,7 @@ http://127.0.0.1:8000
 GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 repo 另外提供 Pages 版本：
 
 - `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:30 觸發。
+- `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 自動寄出前 50 筆觀察名單。
 - `generate_static_data.py` 會跑完整分析流程並輸出 `static/data/YYYY-MM-DD.json`、`static/latest.json`、`static/dates.json`。
 - Pages 網頁可挑已產生的日期，讀取對應 JSON 顯示名單。
 - 本機開發時，網頁優先呼叫 `/api/run`，可以按日期即時重跑。
@@ -55,7 +63,30 @@ Render 部署流程：
 2. 連接 GitHub repo `popofebsdog/demo_stock`。
 3. Render 會讀 `render.yaml`。
 4. 部署完成後打開 Render URL，就可以在網頁上挑日期即時跑分析。
-5. 若要啟用 Email，在 Render service 的 Environment 加上 `SMTP_HOST`、`SMTP_PORT`、`SMTP_USER`、`SMTP_PASSWORD`、`EMAIL_FROM`、`EMAIL_TO`、`EMAIL_SEND_TOKEN`。
+5. 若要啟用網站上的測試寄送 Email，在 Render service 的 Environment 加上 `SMTP_HOST`、`SMTP_PORT`、`SMTP_USER`、`SMTP_PASSWORD`、`EMAIL_FROM`、`EMAIL_TO`、`EMAIL_SEND_TOKEN`。
+
+## 每日 15:30 自動寄信
+
+正式的零人力寄信由 GitHub Actions 的 `.github/workflows/send-daily-email.yml` 負責。它會在每個週一到週五台灣時間 15:30 執行：
+
+```bash
+python send_daily_email.py
+```
+
+這個腳本會抓最新交易日資料、跑分析、寄出前 50 筆觀察名單。
+
+需要在 GitHub repo 的 `Settings > Secrets and variables > Actions` 新增：
+
+```text
+SMTP_HOST
+SMTP_PORT
+SMTP_USER
+SMTP_PASSWORD
+EMAIL_FROM
+EMAIL_TO
+```
+
+這條自動寄信 pipeline 不需要 `EMAIL_SEND_TOKEN`，因為它只在 GitHub Actions 後台執行，不開放給瀏覽器呼叫。
 
 先測試產生報告：
 
@@ -84,7 +115,7 @@ python3 stock_screener.py --send-email
 
 Gmail 要使用「應用程式密碼」，不要用登入密碼。
 
-網頁上的「寄 Email」會呼叫 `/api/email`，需要輸入 `.env` 或 Render 環境變數中的 `EMAIL_SEND_TOKEN`。這個 token 是為了避免公開網站被陌生人拿來亂寄信。
+網頁上的「測試寄送 Email」會呼叫 `/api/email`，需要輸入 `.env` 或 Render 環境變數中的 `EMAIL_SEND_TOKEN`。這個 token 是為了避免公開網站被陌生人拿來亂寄信。
 
 ## 每天 15:30 自動執行
 
