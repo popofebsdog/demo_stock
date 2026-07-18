@@ -8,6 +8,7 @@ const metricCount = document.querySelector("#metric-count");
 const metricScore = document.querySelector("#metric-score");
 
 dateInput.valueAsDate = new Date();
+loadDateChoices();
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -28,12 +29,18 @@ form.addEventListener("submit", async (event) => {
 });
 
 async function loadAnalysis(params) {
+  const requestedDate = params.get("date");
   const apiResponse = await fetch(`api/run?${params.toString()}`);
   if (apiResponse.ok) return apiResponse.json();
-  const staticResponse = await fetch("latest.json");
+  const staticPath = requestedDate ? `data/${requestedDate}.json` : "latest.json";
+  let staticResponse = await fetch(staticPath);
+  if (!staticResponse.ok) staticResponse = await fetch("latest.json");
   if (staticResponse.ok) {
     const payload = await staticResponse.json();
     payload.staticMode = true;
+    if (requestedDate && payload.date !== requestedDate) {
+      payload.requestedMissing = requestedDate;
+    }
     return payload;
   }
   const errorPayload = await apiResponse.json().catch(() => ({}));
@@ -41,7 +48,7 @@ async function loadAnalysis(params) {
 }
 
 function render(payload) {
-  statusEl.textContent = payload.staticMode ? "Pages 最新資料" : "完成";
+  statusEl.textContent = payload.requestedMissing ? `Pages 無 ${payload.requestedMissing}` : payload.staticMode ? "Pages 靜態資料" : "完成";
   metricDate.textContent = payload.date;
   metricCount.textContent = payload.count.toLocaleString("zh-TW");
   metricScore.textContent = payload.records[0]?.score ?? "--";
@@ -65,6 +72,26 @@ function render(payload) {
       </tr>
     `;
   }).join("");
+}
+
+async function loadDateChoices() {
+  const response = await fetch("dates.json").catch(() => null);
+  if (!response?.ok) return;
+  const payload = await response.json();
+  const dates = payload.dates || [];
+  if (!dates.length) return;
+  dateInput.value = dates[0];
+  dateInput.min = dates[dates.length - 1];
+  dateInput.max = dates[0];
+  const list = document.createElement("datalist");
+  list.id = "available-dates";
+  dates.forEach((date) => {
+    const option = document.createElement("option");
+    option.value = date;
+    list.appendChild(option);
+  });
+  document.body.appendChild(list);
+  dateInput.setAttribute("list", "available-dates");
 }
 
 function formatNumber(value) {

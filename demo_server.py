@@ -4,6 +4,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import mimetypes
+import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -22,6 +23,9 @@ class DemoHandler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
+        if parsed.path == "/api/health":
+            self.send_json({"ok": True})
+            return
         if parsed.path == "/api/run":
             self.handle_run(parsed.query)
             return
@@ -85,8 +89,10 @@ class DemoHandler(BaseHTTPRequestHandler):
 
 
 def main() -> int:
-    server = ThreadingHTTPServer(("127.0.0.1", 8000), DemoHandler)
-    print("Demo running at http://127.0.0.1:8000")
+    host = os.getenv("HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", "8000"))
+    server = ThreadingHTTPServer((host, port), DemoHandler)
+    print(f"Demo running at http://{host}:{port}")
     server.serve_forever()
     return 0
 

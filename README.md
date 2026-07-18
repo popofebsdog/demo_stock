@@ -33,11 +33,27 @@ http://127.0.0.1:8000
 GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 repo 另外提供 Pages 版本：
 
 - `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:30 觸發。
-- `generate_static_data.py` 會跑完整分析流程並輸出 `static/latest.json`。
-- Pages 網頁讀取 `latest.json` 顯示最新名單。
+- `generate_static_data.py` 會跑完整分析流程並輸出 `static/data/YYYY-MM-DD.json`、`static/latest.json`、`static/dates.json`。
+- Pages 網頁可挑已產生的日期，讀取對應 JSON 顯示名單。
 - 本機開發時，網頁優先呼叫 `/api/run`，可以按日期即時重跑。
 
 注意：private repo 是否能啟用 GitHub Pages 取決於 GitHub 帳號/組織方案。如果 GitHub 回覆 `Your current plan does not support GitHub Pages for this repository`，代表 repo 可以維持 private，但 Pages 無法啟用；可改成 public repo、升級方案，或改部署到 Vercel / Netlify。
+
+## 動態部署
+
+如果要在正式網址上「挑任意日期即時重跑」，需要能執行 Python 的動態主機，例如 Render、Railway、Fly.io 或 Heroku。這個 repo 已經包含：
+
+- `render.yaml`：Render Blueprint 設定。
+- `Procfile`：Railway / Heroku 類平台可用的啟動命令。
+- `requirements.txt`：Python 依賴。
+- `demo_server.py`：會讀平台提供的 `PORT`，並提供 `/api/run` 和 `/api/health`。
+
+Render 部署流程：
+
+1. 到 Render 建立 Web Service。
+2. 連接 GitHub repo `popofebsdog/demo_stock`。
+3. Render 會讀 `render.yaml`。
+4. 部署完成後打開 Render URL，就可以在網頁上挑日期即時跑分析。
 
 先測試產生報告：
 

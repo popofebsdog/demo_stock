@@ -3,16 +3,16 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import argparse
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from stock_screener import run_analysis, scored_records
 
 
-def main() -> int:
-    today = dt.datetime.now(ZoneInfo("Asia/Taipei")).date()
-    date, scored, report = run_analysis(today, top=50)
-    payload = {
+def build_payload(requested: dt.date) -> dict[str, object]:
+    date, scored, report = run_analysis(requested, top=50)
+    return {
         "date": str(date),
         "top": 50,
         "count": len(scored),
@@ -20,9 +20,49 @@ def main() -> int:
         "report": report,
         "generated_at": dt.datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds"),
     }
-    path = Path("static/latest.json")
+
+
+def write_payload(payload: dict[str, object]) -> Path:
+    date = str(payload["date"])
+    data_dir = Path("static/data")
+    data_dir.mkdir(parents=True, exist_ok=True)
+    path = data_dir / f"{date}.json"
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"wrote {path} for {date}")
+    Path("static/latest.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return path
+
+
+def write_dates() -> None:
+    dates = sorted((p.stem for p in Path("static/data").glob("*.json")), reverse=True)
+    payload = {
+        "dates": dates,
+        "latest": dates[0] if dates else None,
+        "generated_at": dt.datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds"),
+    }
+    Path("static/dates.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate static GitHub Pages data")
+    parser.add_argument("--date", help="latest requested date, default: today in Asia/Taipei")
+    parser.add_argument("--backfill", type=int, default=1, help="calendar days to walk backward")
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_args()
+    today = dt.date.fromisoformat(args.date) if args.date else dt.datetime.now(ZoneInfo("Asia/Taipei")).date()
+    seen: set[str] = set()
+    for offset in range(max(args.backfill, 1)):
+        requested = today - dt.timedelta(days=offset)
+        payload = build_payload(requested)
+        date = str(payload["date"])
+        if date in seen:
+            continue
+        seen.add(date)
+        path = write_payload(payload)
+        print(f"wrote {path} for {date}")
+    write_dates()
     return 0
 
 
