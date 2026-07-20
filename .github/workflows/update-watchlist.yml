@@ -24,6 +24,8 @@ jobs:
           restore-keys: |
             market-data-${{ runner.os }}-
       - name: Generate static watchlist data
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: python generate_static_data.py --backfill 1
       - name: Commit updated data
         run: |

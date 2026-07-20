@@ -6,11 +6,15 @@ from unittest.mock import patch
 from send_daily_email import append_send_log, mask_email
 from stock_screener import (
     Candle,
+    AIReview,
+    apply_ai_reviews,
     build_grouped_report,
+    build_grouped_records_html_report,
     build_html_report,
     build_report,
     candlestick_patterns,
     parse_number,
+    parse_openai_json_output,
     parse_quote_table,
     pick_ranked_candidates,
     ranked_group_records,
@@ -160,6 +164,48 @@ class StockScreenerTest(unittest.TestCase):
         self.assertEqual([r["symbol"] for r in groups["volume"]], ["1002", "1003"])
         self.assertEqual([r["symbol"] for r in groups["gainers"]], ["1001", "1003"])
         self.assertEqual([r["symbol"] for r in groups["losers"]], ["1002", "1003"])
+
+    def test_apply_ai_reviews_enriches_records_and_groups(self):
+        payload = {
+            "records": [{"symbol": "1001", "name": "A"}],
+            "groups": {"volume": [{"symbol": "1001", "name": "A"}]},
+        }
+
+        enriched = apply_ai_reviews(payload, {"1001": AIReview("保留觀察", "medium", "量價訊號需確認", ("量增",))})
+
+        self.assertEqual(enriched["records"][0]["ai_review"]["decision"], "保留觀察")
+        self.assertEqual(enriched["groups"]["volume"][0]["ai_review"]["summary"], "量價訊號需確認")
+
+    def test_parse_openai_json_output_reads_output_text(self):
+        payload = {"output_text": '{"reviews":[{"symbol":"1001","decision":"通過","risk_level":"low","summary":"訊號一致","flags":[]}]}'}
+
+        parsed = parse_openai_json_output(payload)
+
+        self.assertEqual(parsed["reviews"][0]["symbol"], "1001")
+
+    def test_grouped_records_html_report_shows_ai_review(self):
+        groups = {
+            "volume": [
+                {
+                    "symbol": "1001",
+                    "name": "A",
+                    "market": "TWSE",
+                    "score": 3,
+                    "close": 10,
+                    "change_pct": 1.2,
+                    "volume": 1000,
+                    "reasons": ["站上MA20"],
+                    "ai_review": {"decision": "通過", "risk_level": "low", "summary": "訊號一致", "flags": []},
+                }
+            ],
+            "gainers": [],
+            "losers": [],
+        }
+
+        html = build_grouped_records_html_report("2026-07-17", groups, max_rows=1)
+
+        self.assertIn("AI覆核", html)
+        self.assertIn("通過 / low", html)
 
     def test_run_analysis_requires_requested_date_data(self):
         with patch("stock_screener.fetch_market", return_value=[]):

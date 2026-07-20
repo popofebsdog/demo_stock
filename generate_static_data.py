@@ -7,20 +7,23 @@ import argparse
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from stock_screener import ranked_group_records, run_analysis, scored_records
+from stock_screener import apply_ai_reviews, ranked_group_records, records_for_ai_review, review_records_with_openai, run_analysis, scored_records
 
 
 def build_payload(requested: dt.date) -> dict[str, object]:
     date, scored, report = run_analysis(requested, top=50)
-    return {
+    groups = ranked_group_records(scored, 50)
+    payload = {
         "date": str(date),
         "top": 50,
         "count": len(scored),
         "records": scored_records(scored, 50),
-        "groups": ranked_group_records(scored, 50),
+        "groups": groups,
         "report": report,
         "generated_at": dt.datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds"),
     }
+    reviews = review_records_with_openai(records_for_ai_review(groups, 20))
+    return apply_ai_reviews(payload, reviews)
 
 
 def write_payload(payload: dict[str, object]) -> Path:

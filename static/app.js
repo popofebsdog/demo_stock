@@ -33,7 +33,7 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   button.disabled = true;
   statusEl.textContent = "分析中";
-  bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">正在抓官方行情與計算 K 線訊號...</td></tr>`;
+  bodyEl.innerHTML = `<tr class="empty-row"><td colspan="9">正在抓官方行情與計算 K 線訊號...</td></tr>`;
 
   try {
     const payload = localCrawlerMode ? await runLocalCrawler(new URLSearchParams(new FormData(form))) : await loadLatestStatic();
@@ -41,7 +41,7 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     statusEl.textContent = "失敗";
     clearResults();
-    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
+    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="9">${escapeHtml(error.message)}</td></tr>`;
   } finally {
     button.disabled = false;
   }
@@ -75,7 +75,7 @@ async function initApp() {
   } catch (error) {
     statusEl.textContent = "無資料";
     clearResults();
-    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
+    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="9">${escapeHtml(error.message)}</td></tr>`;
   }
 }
 
@@ -243,6 +243,9 @@ function renderRows(rows) {
     const change = row.change_pct === null || row.change_pct === undefined ? "--" : `${row.change_pct.toFixed(2)}%`;
     const changeClass = row.change_pct > 0 ? "positive" : row.change_pct < 0 ? "negative" : "";
     const signals = row.reasons.length ? row.reasons.join("；") : "無明顯加分訊號";
+    const aiReview = row.ai_review;
+    const aiLabel = aiReview ? `${aiReview.decision} / ${aiReview.risk_level}` : "未覆核";
+    const aiSummary = aiReview?.summary || "";
     return `
       <tr>
         <td class="rank">${String(index + 1).padStart(2, "0")}</td>
@@ -255,10 +258,14 @@ function renderRows(rows) {
         <td>${formatNumber(row.close)}</td>
         <td class="${changeClass}">${change}</td>
         <td>${formatNumber(row.volume)}</td>
+        <td class="ai-review">
+          <span class="ai-decision">${escapeHtml(aiLabel)}</span>
+          <span>${escapeHtml(aiSummary)}</span>
+        </td>
         <td class="signals">${escapeHtml(signals)}</td>
       </tr>
     `;
-  }).join("") || `<tr class="empty-row"><td colspan="8">沒有可用資料。</td></tr>`;
+  }).join("") || `<tr class="empty-row"><td colspan="9">沒有可用資料。</td></tr>`;
 }
 
 function formatNumber(value) {

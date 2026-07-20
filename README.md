@@ -90,9 +90,12 @@ SMTP_USER
 SMTP_PASSWORD
 EMAIL_FROM
 EMAIL_TO
+OPENAI_API_KEY
 ```
 
 寄信成功後，workflow 會更新 `static/send-log.json`，前端會顯示最近寄送紀錄。
+
+`OPENAI_API_KEY` 用於 AI 覆核；未設定時系統會跳過覆核，仍照原本規則產生名單。
 
 先測試產生報告：
 

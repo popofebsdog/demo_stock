@@ -9,7 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from stock_screener import load_env_file, ranked_group_records, run_analysis, scored_records
+from stock_screener import apply_ai_reviews, load_env_file, ranked_group_records, records_for_ai_review, review_records_with_openai, run_analysis, scored_records
 
 
 ROOT = Path(__file__).resolve().parent
@@ -39,14 +39,17 @@ class DemoHandler(BaseHTTPRequestHandler):
             requested = dt.date.fromisoformat(date_text) if date_text else dt.date.today()
             top = min(max(int(top_text), 1), 50)
             date, scored, report = run_analysis(requested, top)
+            groups = ranked_group_records(scored, 50)
             payload = {
                 "date": str(date),
                 "top": top,
                 "count": len(scored),
                 "records": scored_records(scored, top),
-                "groups": ranked_group_records(scored, 50),
+                "groups": groups,
                 "report": report,
             }
+            reviews = review_records_with_openai(records_for_ai_review(groups, 20))
+            payload = apply_ai_reviews(payload, reviews)
             self.send_json(payload)
         except Exception as exc:
             self.send_json({"error": str(exc)}, status=500)

@@ -369,7 +369,7 @@ select:focus-visible {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px;
+  min-width: 1080px;
 }
 
 th,
@@ -446,6 +446,18 @@ th {
   max-width: 420px;
   color: var(--muted);
   line-height: 1.55;
+}
+
+.ai-review {
+  min-width: 150px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.ai-decision {
+  display: block;
+  color: var(--ink);
+  font-weight: 900;
 }
 
 .empty-row td {

@@ -48,6 +48,14 @@ class ScoredStock:
     patterns: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class AIReview:
+    decision: str
+    risk_level: str
+    summary: str
+    flags: tuple[str, ...] = ()
+
+
 def parse_number(value: object) -> float | int | None:
     if value is None:
         return None
@@ -381,6 +389,177 @@ def scored_records_from_rows(rows: Iterable[ScoredStock]) -> list[dict[str, obje
     return records
 
 
+def ai_review_record(review: AIReview | dict[str, object] | None) -> dict[str, object] | None:
+    if review is None:
+        return None
+    if isinstance(review, AIReview):
+        return {
+            "decision": review.decision,
+            "risk_level": review.risk_level,
+            "summary": review.summary,
+            "flags": list(review.flags),
+        }
+    return {
+        "decision": str(review.get("decision", "未覆核")),
+        "risk_level": str(review.get("risk_level", "unknown")),
+        "summary": str(review.get("summary", "")),
+        "flags": list(review.get("flags") or []),
+    }
+
+
+def enrich_records_with_ai_reviews(records: list[dict[str, object]], reviews: dict[str, AIReview | dict[str, object]]) -> list[dict[str, object]]:
+    enriched = []
+    for record in records:
+        row = dict(record)
+        review = ai_review_record(reviews.get(str(row.get("symbol", ""))))
+        if review:
+            row["ai_review"] = review
+        enriched.append(row)
+    return enriched
+
+
+def records_for_ai_review(groups: dict[str, list[dict[str, object]]], max_rows: int = 20) -> list[dict[str, object]]:
+    by_symbol: dict[str, dict[str, object]] = {}
+    for key in ("volume", "gainers", "losers"):
+        for record in groups.get(key, [])[:max_rows]:
+            by_symbol.setdefault(str(record.get("symbol", "")), record)
+    return list(by_symbol.values())
+
+
+def apply_ai_reviews(payload: dict[str, object], reviews: dict[str, AIReview | dict[str, object]]) -> dict[str, object]:
+    if not reviews:
+        return payload
+    if isinstance(payload.get("records"), list):
+        payload["records"] = enrich_records_with_ai_reviews(payload["records"], reviews)  # type: ignore[arg-type]
+    groups = payload.get("groups")
+    if isinstance(groups, dict):
+        payload["groups"] = {
+            key: enrich_records_with_ai_reviews(value, reviews) if isinstance(value, list) else value
+            for key, value in groups.items()
+        }
+    payload["ai_review"] = {
+        "enabled": True,
+        "count": len(reviews),
+        "model": os.getenv("OPENAI_MODEL", "gpt-5.4-mini"),
+    }
+    return payload
+
+
+def review_records_with_openai(records: list[dict[str, object]], model: str | None = None) -> dict[str, AIReview]:
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key or not records:
+        return {}
+    model = model or os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+    request_body = {
+        "model": model,
+        "store": False,
+        "input": [
+            {
+                "role": "developer",
+                "content": (
+                    "你是台股技術分析覆核員。只根據輸入的規則分數、價量、漲跌幅與訊號做覆核。"
+                    "不要提供買賣指令，不要臆測新聞或基本面。"
+                    "decision 只能是：通過、保留觀察、排除。risk_level 只能是：low、medium、high。"
+                    "summary 用繁體中文，最多 36 字。flags 最多 3 個。"
+                ),
+            },
+            {
+                "role": "user",
+                "content": json.dumps({"records": compact_records_for_ai(records)}, ensure_ascii=False),
+            },
+        ],
+        "text": {
+            "format": {
+                "type": "json_schema",
+                "name": "stock_ai_reviews",
+                "strict": True,
+                "schema": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {
+                        "reviews": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "properties": {
+                                    "symbol": {"type": "string"},
+                                    "decision": {"type": "string", "enum": ["通過", "保留觀察", "排除"]},
+                                    "risk_level": {"type": "string", "enum": ["low", "medium", "high"]},
+                                    "summary": {"type": "string"},
+                                    "flags": {"type": "array", "items": {"type": "string"}, "maxItems": 3},
+                                },
+                                "required": ["symbol", "decision", "risk_level", "summary", "flags"],
+                            },
+                        }
+                    },
+                    "required": ["reviews"],
+                },
+            }
+        },
+    }
+    data = json.dumps(request_body, ensure_ascii=False).encode("utf-8")
+    request = urllib.request.Request(
+        "https://api.openai.com/v1/responses",
+        data=data,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=60, context=ssl_context()) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except Exception as exc:
+        print(f"skip AI review: {exc}", file=sys.stderr)
+        return {}
+    parsed = parse_openai_json_output(payload)
+    reviews: dict[str, AIReview] = {}
+    for item in parsed.get("reviews", []):
+        symbol = str(item.get("symbol", ""))
+        if not symbol:
+            continue
+        reviews[symbol] = AIReview(
+            decision=str(item.get("decision", "保留觀察")),
+            risk_level=str(item.get("risk_level", "medium")),
+            summary=str(item.get("summary", ""))[:80],
+            flags=tuple(str(flag)[:24] for flag in item.get("flags", [])[:3]),
+        )
+    return reviews
+
+
+def compact_records_for_ai(records: list[dict[str, object]]) -> list[dict[str, object]]:
+    compact = []
+    for record in records:
+        compact.append(
+            {
+                "symbol": record.get("symbol"),
+                "name": record.get("name"),
+                "market": record.get("market"),
+                "score": record.get("score"),
+                "close": record.get("close"),
+                "change_pct": record.get("change_pct"),
+                "volume": record.get("volume"),
+                "reasons": record.get("reasons", []),
+                "patterns": record.get("patterns", []),
+            }
+        )
+    return compact
+
+
+def parse_openai_json_output(payload: dict[str, object]) -> dict[str, object]:
+    if isinstance(payload.get("output_text"), str):
+        return json.loads(payload["output_text"])  # type: ignore[arg-type]
+    for item in payload.get("output", []):  # type: ignore[union-attr]
+        if not isinstance(item, dict):
+            continue
+        for content in item.get("content", []):
+            if isinstance(content, dict) and isinstance(content.get("text"), str):
+                return json.loads(content["text"])
+    return {"reviews": []}
+
+
 def ranked_groups(scored: Iterable[ScoredStock], max_rows: int = 50) -> dict[str, list[ScoredStock]]:
     rows = list(scored)
     with_pct = [row for row in rows if row.candle.change_pct is not None]
@@ -423,6 +602,114 @@ def build_grouped_html_report(date: str, scored: Iterable[ScoredStock], max_rows
   {tables}
 </body>
 </html>"""
+
+
+def build_grouped_records_report(date: str, groups: dict[str, list[dict[str, object]]], max_rows: int = 20) -> str:
+    sections = [
+        ("成交量前段班", groups.get("volume", [])),
+        ("漲幅前段班", groups.get("gainers", [])),
+        ("跌幅前段班", groups.get("losers", [])),
+    ]
+    lines = [
+        f"台股每日自動觀察名單 {date}",
+        f"每張表列前 {max_rows} 筆。資料來源：TWSE / TPEx 公開資料；僅供研究，不是投資建議。",
+        "",
+    ]
+    for title, rows in sections:
+        lines.append(title)
+        if not rows:
+            lines.append("沒有可用資料。")
+            lines.append("")
+            continue
+        for idx, record in enumerate(rows[:max_rows], 1):
+            pct = "--" if record.get("change_pct") is None else f"{float(record.get('change_pct')):.2f}%"
+            reasons = "；".join(record.get("reasons") or []) or "無明顯加分訊號"
+            review = ai_review_record(record.get("ai_review"))
+            review_text = ""
+            if review:
+                review_text = f" AI覆核 {review['decision']} / {review['risk_level']}：{review['summary']}"
+            lines.append(
+                f"{idx:02d}. {record.get('symbol')} {record.get('name')} [{record.get('market')}] "
+                f"分數 {record.get('score')} 收 {float(record.get('close') or 0):g} 漲跌幅 {pct} 量 {int(record.get('volume') or 0):,}{review_text}"
+            )
+            lines.append(f"    {reasons}")
+        lines.append("")
+    return "\n".join(lines).rstrip()
+
+
+def build_grouped_records_html_report(date: str, groups: dict[str, list[dict[str, object]]], max_rows: int = 20) -> str:
+    sections = [
+        ("成交量前段班", groups.get("volume", [])),
+        ("漲幅前段班", groups.get("gainers", [])),
+        ("跌幅前段班", groups.get("losers", [])),
+    ]
+    tables = "\n".join(f"<h3>{html.escape(title)}</h3>{html_records_table(rows[:max_rows])}" for title, rows in sections)
+    return f"""<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif; color: #17211b; }}
+    .note {{ color: #65726c; font-size: 13px; }}
+    h3 {{ margin-top: 24px; }}
+    table {{ border-collapse: collapse; width: 100%; max-width: 1280px; margin-bottom: 18px; }}
+    th, td {{ border: 1px solid #d8ded7; padding: 8px 10px; text-align: left; vertical-align: top; font-size: 13px; }}
+    th {{ background: #eef2ee; }}
+    td:nth-child(1), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8) {{ white-space: nowrap; }}
+  </style>
+</head>
+<body>
+  <h2>台股每日自動觀察名單 {html.escape(date)}</h2>
+  <p class="note">每張表列前 {max_rows} 筆。AI 覆核只做風險提示與訊號檢查，不是投資建議。</p>
+  {tables}
+</body>
+</html>"""
+
+
+def html_records_table(rows: list[dict[str, object]]) -> str:
+    body_rows = []
+    for idx, record in enumerate(rows, 1):
+        pct = "--" if record.get("change_pct") is None else f"{float(record.get('change_pct')):.2f}%"
+        reasons = "；".join(record.get("reasons") or []) or "無明顯加分訊號"
+        review = ai_review_record(record.get("ai_review"))
+        review_label = "未覆核"
+        review_summary = ""
+        if review:
+            review_label = f"{review['decision']} / {review['risk_level']}"
+            review_summary = str(review["summary"])
+        body_rows.append(
+            "<tr>"
+            f"<td>{idx}</td>"
+            f"<td><strong>{html.escape(str(record.get('symbol', '')))}</strong><br>{html.escape(str(record.get('name', '')))}</td>"
+            f"<td>{html.escape(str(record.get('market', '')))}</td>"
+            f"<td><strong>{int(record.get('score') or 0)}</strong></td>"
+            f"<td>{float(record.get('close') or 0):g}</td>"
+            f"<td>{html.escape(pct)}</td>"
+            f"<td>{int(record.get('volume') or 0):,}</td>"
+            f"<td><strong>{html.escape(review_label)}</strong><br>{html.escape(review_summary)}</td>"
+            f"<td>{html.escape(reasons)}</td>"
+            "</tr>"
+        )
+    if not body_rows:
+        body_rows.append('<tr><td colspan="9">沒有可用資料</td></tr>')
+    return f"""<table>
+    <thead>
+      <tr>
+        <th>排名</th>
+        <th>股票</th>
+        <th>市場</th>
+        <th>分數</th>
+        <th>收盤</th>
+        <th>漲跌幅</th>
+        <th>成交量</th>
+        <th>AI覆核</th>
+        <th>訊號</th>
+      </tr>
+    </thead>
+    <tbody>
+      {''.join(body_rows)}
+    </tbody>
+  </table>"""
 
 
 def html_table(rows: Iterable[ScoredStock]) -> str:
