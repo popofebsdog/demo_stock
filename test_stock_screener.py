@@ -5,11 +5,14 @@ from tempfile import TemporaryDirectory
 from send_daily_email import append_send_log, mask_email
 from stock_screener import (
     Candle,
+    build_grouped_report,
     build_html_report,
     build_report,
     candlestick_patterns,
     parse_number,
+    parse_quote_table,
     pick_ranked_candidates,
+    ranked_group_records,
     scored_records,
     score_stock,
 )
@@ -31,6 +34,14 @@ class StockScreenerTest(unittest.TestCase):
         picked = pick_ranked_candidates(rows, limit=1)
 
         self.assertEqual([row.symbol for row in picked], ["1002", "1001"])
+
+    def test_parse_quote_table_applies_twse_minus_sign_to_change_pct(self):
+        fields = ["證券代號", "證券名稱", "成交股數", "開盤價", "最高價", "最低價", "收盤價", "漲跌(+/-)", "漲跌價差"]
+        rows = [["2330", "台積電", "1,000", "100.00", "101.00", "98.00", "99.00", "<p style= color:green>-</p>", "1.00"]]
+
+        parsed = parse_quote_table("2026-07-17", "TWSE", fields, rows)
+
+        self.assertAlmostEqual(parsed[0].change_pct, -1.0)
 
     def test_candlestick_patterns_detects_bullish_engulfing_and_hammer(self):
         candles = [
@@ -77,6 +88,32 @@ class StockScreenerTest(unittest.TestCase):
         self.assertIn("台積電", html)
         self.assertIn("分數", html)
 
+    def test_build_grouped_report_contains_three_rankings(self):
+        scored = [
+            score_stock([Candle("2026-07-17", "1001", "A", "TWSE", 10, 11, 9, 11, 300, 10)]),
+            score_stock([Candle("2026-07-17", "1002", "B", "TWSE", 10, 10, 8, 8, 500, -20)]),
+        ]
+
+        report = build_grouped_report("2026-07-17", scored, max_rows=1)
+
+        self.assertIn("成交量前段班", report)
+        self.assertIn("漲幅前段班", report)
+        self.assertIn("跌幅前段班", report)
+        self.assertEqual(report.count("01."), 3)
+
+    def test_ranked_group_records_splits_volume_gainers_and_losers(self):
+        scored = [
+            score_stock([Candle("2026-07-17", "1001", "A", "TWSE", 10, 11, 9, 11, 300, 10)]),
+            score_stock([Candle("2026-07-17", "1002", "B", "TWSE", 10, 10, 8, 8, 500, -20)]),
+            score_stock([Candle("2026-07-17", "1003", "C", "TPEx", 10, 10.5, 9, 10.5, 400, 5)]),
+        ]
+
+        groups = ranked_group_records(scored, 2)
+
+        self.assertEqual([r["symbol"] for r in groups["volume"]], ["1002", "1003"])
+        self.assertEqual([r["symbol"] for r in groups["gainers"]], ["1001", "1003"])
+        self.assertEqual([r["symbol"] for r in groups["losers"]], ["1002", "1003"])
+
     def test_scored_records_are_json_ready(self):
         item = score_stock([Candle("2026-07-17", "2330", "台積電", "TWSE", 100, 110, 99, 108, 5000, 8)])
 
@@ -88,11 +125,11 @@ class StockScreenerTest(unittest.TestCase):
     def test_append_send_log_masks_recipient(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "send-log.json"
-            append_send_log(path, "2026-07-17", 50, "dearbibi@hotmail.com", "2026-07-18T15:30:00+08:00")
+            append_send_log(path, "2026-07-17", 50, "dear.user@example.com", "2026-07-18T15:30:00+08:00")
 
             text = path.read_text(encoding="utf-8")
-            self.assertIn("de***@hotmail.com", text)
-            self.assertNotIn("dearbibi@hotmail.com", text)
+            self.assertIn("de***@example.com", text)
+            self.assertNotIn("dear.user@example.com", text)
             self.assertEqual(mask_email("a@example.com"), "a***@example.com")
 
 

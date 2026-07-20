@@ -7,7 +7,7 @@ import argparse
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from stock_screener import run_analysis, scored_records
+from stock_screener import ranked_group_records, run_analysis, scored_records
 
 
 def build_payload(requested: dt.date) -> dict[str, object]:
@@ -17,6 +17,7 @@ def build_payload(requested: dt.date) -> dict[str, object]:
         "top": 50,
         "count": len(scored),
         "records": scored_records(scored, 50),
+        "groups": ranked_group_records(scored, 50),
         "report": report,
         "generated_at": dt.datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds"),
     }

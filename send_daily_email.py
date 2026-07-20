@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 
-from stock_screener import build_html_report, load_env_file, send_email
+from stock_screener import build_grouped_html_report, build_grouped_report, load_env_file, send_email
 
 
 def append_send_log(path: Path, date: str, top: int, recipient: str, sent_at: str) -> None:
@@ -38,13 +38,28 @@ def main() -> int:
     load_env_file()
     payload = json.loads(Path("static/latest.json").read_text(encoding="utf-8"))
     date = payload["date"]
-    top = payload.get("top", 50)
-    report = payload["report"]
-    html_report = build_html_report(str(date), records_to_scored_like(payload.get("records", [])), max_rows=int(top))
+    top = 20
+    scored = records_to_scored_like(flatten_group_records(payload))
+    report = build_grouped_report(str(date), scored, max_rows=top)
+    html_report = build_grouped_html_report(str(date), scored, max_rows=top)
     send_email(f"台股每日自動觀察名單 {date}", report, html_report)
     append_send_log(Path("static/send-log.json"), str(date), int(top), os.getenv("EMAIL_TO", ""), payload.get("generated_at", ""))
     print(f"sent daily email for {date}")
     return 0
+
+
+def flatten_group_records(payload: dict[str, object]) -> list[dict[str, object]]:
+    groups = payload.get("groups")
+    if not isinstance(groups, dict):
+        return list(payload.get("records", []))
+    by_symbol: dict[str, dict[str, object]] = {}
+    for group in groups.values():
+        if not isinstance(group, list):
+            continue
+        for record in group:
+            if isinstance(record, dict):
+                by_symbol[str(record.get("symbol", ""))] = record
+    return list(by_symbol.values())
 
 
 def records_to_scored_like(records: list[dict[str, object]]) -> list[object]:

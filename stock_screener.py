@@ -237,11 +237,39 @@ def build_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 20) -
         c = item.candle
         pct = "--" if c.change_pct is None else f"{c.change_pct:.2f}%"
         reasons = "；".join(item.reasons) if item.reasons else "無明顯加分訊號"
-        lines.append(f"{idx:02d}. {c.symbol} {c.name} [{c.market}] 分數 {item.score} 收 {c.close:g} 漲跌 {pct} 量 {c.volume:,}")
+        lines.append(f"{idx:02d}. {c.symbol} {c.name} [{c.market}] 分數 {item.score} 收 {c.close:g} 漲跌幅 {pct} 量 {c.volume:,}")
         lines.append(f"    {reasons}")
     if not rows:
         lines.append("沒有可用資料。")
     return "\n".join(lines)
+
+
+def build_grouped_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 20) -> str:
+    groups = ranked_groups(scored, max_rows)
+    sections = [
+        ("成交量前段班", groups["volume"]),
+        ("漲幅前段班", groups["gainers"]),
+        ("跌幅前段班", groups["losers"]),
+    ]
+    lines = [
+        f"台股每日自動觀察名單 {date}",
+        f"每張表列前 {max_rows} 筆。資料來源：TWSE / TPEx 公開資料；僅供研究，不是投資建議。",
+        "",
+    ]
+    for title, rows in sections:
+        lines.append(title)
+        if not rows:
+            lines.append("沒有可用資料。")
+            lines.append("")
+            continue
+        for idx, item in enumerate(rows, 1):
+            c = item.candle
+            pct = "--" if c.change_pct is None else f"{c.change_pct:.2f}%"
+            reasons = "；".join(item.reasons) if item.reasons else "無明顯加分訊號"
+            lines.append(f"{idx:02d}. {c.symbol} {c.name} [{c.market}] 分數 {item.score} 收 {c.close:g} 漲跌幅 {pct} 量 {c.volume:,}")
+            lines.append(f"    {reasons}")
+        lines.append("")
+    return "\n".join(lines).rstrip()
 
 
 def build_html_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 50) -> str:
@@ -289,7 +317,7 @@ def build_html_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 
         <th>市場</th>
         <th>分數</th>
         <th>收盤</th>
-        <th>漲跌</th>
+        <th>漲跌幅</th>
         <th>成交量</th>
         <th>訊號</th>
       </tr>
@@ -304,8 +332,12 @@ def build_html_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 
 
 def scored_records(scored: Iterable[ScoredStock], max_rows: int = 20) -> list[dict[str, object]]:
     rows = sorted(scored, key=lambda item: (item.score, item.candle.volume), reverse=True)
+    return scored_records_from_rows(rows[:max_rows])
+
+
+def scored_records_from_rows(rows: Iterable[ScoredStock]) -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
-    for item in rows[:max_rows]:
+    for item in rows:
         c = item.candle
         records.append(
             {
@@ -321,6 +353,89 @@ def scored_records(scored: Iterable[ScoredStock], max_rows: int = 20) -> list[di
             }
         )
     return records
+
+
+def ranked_groups(scored: Iterable[ScoredStock], max_rows: int = 50) -> dict[str, list[ScoredStock]]:
+    rows = list(scored)
+    with_pct = [row for row in rows if row.candle.change_pct is not None]
+    return {
+        "volume": sorted(rows, key=lambda item: item.candle.volume, reverse=True)[:max_rows],
+        "gainers": sorted(with_pct, key=lambda item: item.candle.change_pct or 0, reverse=True)[:max_rows],
+        "losers": sorted(with_pct, key=lambda item: item.candle.change_pct or 0)[:max_rows],
+    }
+
+
+def ranked_group_records(scored: Iterable[ScoredStock], max_rows: int = 50) -> dict[str, list[dict[str, object]]]:
+    return {name: scored_records_from_rows(rows) for name, rows in ranked_groups(scored, max_rows).items()}
+
+
+def build_grouped_html_report(date: str, scored: Iterable[ScoredStock], max_rows: int = 20) -> str:
+    groups = ranked_groups(scored, max_rows)
+    sections = [
+        ("成交量前段班", groups["volume"]),
+        ("漲幅前段班", groups["gainers"]),
+        ("跌幅前段班", groups["losers"]),
+    ]
+    tables = "\n".join(f"<h3>{html.escape(title)}</h3>{html_table(rows)}" for title, rows in sections)
+    return f"""<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif; color: #17211b; }}
+    .note {{ color: #65726c; font-size: 13px; }}
+    h3 {{ margin-top: 24px; }}
+    table {{ border-collapse: collapse; width: 100%; max-width: 1100px; margin-bottom: 18px; }}
+    th, td {{ border: 1px solid #d8ded7; padding: 8px 10px; text-align: left; vertical-align: top; font-size: 13px; }}
+    th {{ background: #eef2ee; }}
+    td:nth-child(1), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {{ white-space: nowrap; }}
+  </style>
+</head>
+<body>
+  <h2>台股每日自動觀察名單 {html.escape(date)}</h2>
+  <p class="note">每張表列前 {max_rows} 筆。資料來源：TWSE / TPEx 公開資料；僅供研究，不是投資建議。</p>
+  {tables}
+</body>
+</html>"""
+
+
+def html_table(rows: Iterable[ScoredStock]) -> str:
+    body_rows = []
+    for idx, item in enumerate(rows, 1):
+        c = item.candle
+        pct = "--" if c.change_pct is None else f"{c.change_pct:.2f}%"
+        reasons = "；".join(item.reasons) if item.reasons else "無明顯加分訊號"
+        body_rows.append(
+            "<tr>"
+            f"<td>{idx}</td>"
+            f"<td><strong>{html.escape(c.symbol)}</strong><br>{html.escape(c.name)}</td>"
+            f"<td>{html.escape(c.market)}</td>"
+            f"<td><strong>{item.score}</strong></td>"
+            f"<td>{c.close:g}</td>"
+            f"<td>{html.escape(pct)}</td>"
+            f"<td>{c.volume:,}</td>"
+            f"<td>{html.escape(reasons)}</td>"
+            "</tr>"
+        )
+    if not body_rows:
+        body_rows.append('<tr><td colspan="8">沒有可用資料</td></tr>')
+    return f"""<table>
+    <thead>
+      <tr>
+        <th>排名</th>
+        <th>股票</th>
+        <th>市場</th>
+        <th>分數</th>
+        <th>收盤</th>
+        <th>漲跌幅</th>
+        <th>成交量</th>
+        <th>訊號</th>
+      </tr>
+    </thead>
+    <tbody>
+      {''.join(body_rows)}
+    </tbody>
+  </table>"""
 
 
 def cache_path(market: str, date: dt.date) -> Path:
@@ -397,6 +512,7 @@ def parse_quote_table(date: str, market: str, fields: list[str], rows: list[list
     high_i = idx("最高")
     low_i = idx("最低")
     close_i = idx("收盤")
+    sign_i = idx("漲跌(+/-)")
     change_i = idx("漲跌價差", "漲跌")
     required = [symbol_i, name_i, volume_i, open_i, high_i, low_i, close_i]
     if any(i is None for i in required):
@@ -418,11 +534,20 @@ def parse_quote_table(date: str, market: str, fields: list[str], rows: list[list
             continue
         previous_close = None
         change = parse_number(row[change_i]) if change_i is not None and change_i < len(row) else None
+        if change is not None and sign_i is not None and sign_i < len(row):
+            change = float(change) * parse_twse_sign(row[sign_i])
         if change not in (None, 0):
             previous_close = float(close) - float(change)
         change_pct = ((float(close) - previous_close) / previous_close * 100) if previous_close else None
         candles.append(Candle(date, symbol, str(row[name_i]).strip(), market, float(open_), float(high), float(low), float(close), int(volume), change_pct))
     return candles
+
+
+def parse_twse_sign(value: object) -> int:
+    text = str(value)
+    if "-" in text or "green" in text.lower():
+        return -1
+    return 1
 
 
 def fetch_market(date: dt.date) -> list[Candle]:

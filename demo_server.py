@@ -9,7 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from stock_screener import load_env_file, run_analysis, scored_records
+from stock_screener import load_env_file, ranked_group_records, run_analysis, scored_records
 
 
 ROOT = Path(__file__).resolve().parent
@@ -44,6 +44,7 @@ class DemoHandler(BaseHTTPRequestHandler):
                 "top": top,
                 "count": len(scored),
                 "records": scored_records(scored, top),
+                "groups": ranked_group_records(scored, 50),
                 "report": report,
             }
             self.send_json(payload)

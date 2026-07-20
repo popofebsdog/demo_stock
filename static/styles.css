@@ -380,6 +380,12 @@ th {
   text-align: center;
 }
 
+.group-title td {
+  color: var(--ink);
+  background: #eef2ee;
+  font-weight: 900;
+}
+
 @media (max-width: 980px) {
   .shell {
     padding: 12px;

@@ -74,8 +74,29 @@ function render(payload) {
   statusEl.textContent = payload.requestedMissing ? `Pages 無 ${payload.requestedMissing}` : payload.staticMode ? "Pages 靜態資料" : "完成";
   metricDate.textContent = payload.date;
   metricCount.textContent = payload.count.toLocaleString("zh-TW");
-  metricScore.textContent = payload.records[0]?.score ?? "--";
-  bodyEl.innerHTML = payload.records.map((row, index) => {
+  const records = payload.records || [];
+  metricScore.textContent = records[0]?.score ?? "--";
+  if (payload.groups) {
+    renderGroups(payload.groups);
+    return;
+  }
+  bodyEl.innerHTML = renderRows(records);
+}
+
+function renderGroups(groups) {
+  const labels = [
+    ["volume", "成交量前 50"],
+    ["gainers", "漲幅前 50"],
+    ["losers", "跌幅前 50"],
+  ];
+  bodyEl.innerHTML = labels.map(([key, label]) => `
+    <tr class="group-title"><td colspan="8">${label}</td></tr>
+    ${renderRows(groups[key] || [])}
+  `).join("");
+}
+
+function renderRows(rows) {
+  return rows.map((row, index) => {
     const change = row.change_pct === null || row.change_pct === undefined ? "--" : `${row.change_pct.toFixed(2)}%`;
     const changeClass = row.change_pct > 0 ? "positive" : row.change_pct < 0 ? "negative" : "";
     const signals = row.reasons.length ? row.reasons.join("；") : "無明顯加分訊號";
@@ -94,7 +115,7 @@ function render(payload) {
         <td class="signals">${escapeHtml(signals)}</td>
       </tr>
     `;
-  }).join("");
+  }).join("") || `<tr class="empty-row"><td colspan="8">沒有可用資料。</td></tr>`;
 }
 
 async function loadDateChoices() {
