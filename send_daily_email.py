@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import datetime as dt
 import json
 import os
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from stock_screener import build_grouped_html_report, build_grouped_report, load_env_file, send_email
 
 
-def append_send_log(path: Path, date: str, top: int, recipient: str, sent_at: str) -> None:
+def append_send_log(path: Path, date: str, top: int, recipient: str, sent_at: str, status: str = "sent") -> None:
     payload = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"records": []}
     records = payload.get("records", [])
     records.insert(
@@ -18,7 +20,7 @@ def append_send_log(path: Path, date: str, top: int, recipient: str, sent_at: st
             "sent_at": sent_at,
             "top": top,
             "recipient": mask_email(recipient),
-            "status": "sent",
+            "status": status,
         },
     )
     payload["records"] = records[:30]
@@ -38,7 +40,12 @@ def main() -> int:
     load_env_file()
     payload = json.loads(Path("static/latest.json").read_text(encoding="utf-8"))
     date = payload["date"]
+    today = dt.datetime.now(ZoneInfo("Asia/Taipei")).date().isoformat()
     top = 20
+    if str(date) != today:
+        append_send_log(Path("static/send-log.json"), str(date), int(top), os.getenv("EMAIL_TO", ""), payload.get("generated_at", ""), status="skipped-stale")
+        print(f"skip daily email: latest data is {date}, today is {today}")
+        return 0
     scored = records_to_scored_like(flatten_group_records(payload))
     report = build_grouped_report(str(date), scored, max_rows=top)
     html_report = build_grouped_html_report(str(date), scored, max_rows=top)

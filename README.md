@@ -22,6 +22,8 @@
 - 本機查詢 pipeline：本機 `demo_server.py` 提供 `/api/run`，網站可自由選日期並即時連 TWSE / TPEx 重跑爬蟲與分析。
 - GitHub Pages pipeline：線上端只讀排程產出的最新靜態結果與寄送紀錄，不提供任意日期即時爬蟲。
 
+查詢與寄信都不會用舊交易日資料冒充當日資料：指定日期沒有官方資料時，本機查詢會顯示錯誤；GitHub Pages 的最新資料若不是台灣今天，也不顯示表格；寄信 workflow 會記錄 `skipped-stale` 並略過寄信。
+
 ## 使用
 
 啟動本機 demo 系統：

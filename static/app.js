@@ -40,6 +40,7 @@ form.addEventListener("submit", async (event) => {
     render(payload);
   } catch (error) {
     statusEl.textContent = "失敗";
+    clearResults();
     bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
   } finally {
     button.disabled = false;
@@ -73,6 +74,7 @@ async function initApp() {
     render(await loadLatestStatic());
   } catch (error) {
     statusEl.textContent = "無資料";
+    clearResults();
     bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
   }
 }
@@ -118,6 +120,10 @@ async function loadLatestStatic() {
   if (!response.ok) throw new Error("找不到最新靜態資料。");
   const payload = await response.json();
   payload.staticMode = true;
+  const today = taipeiToday();
+  if (payload.date !== today) {
+    throw new Error(`最新靜態資料是 ${payload.date}，不是今天 ${today}，所以不顯示舊資料。`);
+  }
   return payload;
 }
 
@@ -159,6 +165,17 @@ function render(payload) {
   activeGroups = null;
   activeRows = records;
   scoreSortDirection = null;
+  updateTabs();
+  renderCurrentRows();
+}
+
+function clearResults() {
+  activeGroups = null;
+  activeRows = [];
+  scoreSortDirection = null;
+  metricDate.textContent = "--";
+  metricCount.textContent = "--";
+  metricScore.textContent = "--";
   updateTabs();
   renderCurrentRows();
 }
@@ -246,6 +263,17 @@ function renderRows(rows) {
 
 function formatNumber(value) {
   return Number(value).toLocaleString("zh-TW", { maximumFractionDigits: 2 });
+}
+
+function taipeiToday() {
+  const parts = new Intl.DateTimeFormat("en", {
+    timeZone: "Asia/Taipei",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const get = (type) => parts.find((part) => part.type === type)?.value;
+  return `${get("year")}-${get("month")}-${get("day")}`;
 }
 
 function escapeHtml(value) {

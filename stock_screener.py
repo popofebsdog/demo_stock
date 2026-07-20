@@ -564,6 +564,13 @@ def previous_trading_day(today: dt.date) -> tuple[dt.date, list[Candle]]:
     raise RuntimeError("找不到最近交易日資料")
 
 
+def market_day(date: dt.date) -> tuple[dt.date, list[Candle]]:
+    rows = fetch_market(date)
+    if not rows:
+        raise RuntimeError(f"{date} 沒有當日官方交易資料")
+    return date, rows
+
+
 def history_for_symbols(symbols: set[str], end: dt.date, days: int = 45) -> dict[str, list[Candle]]:
     history = {symbol: [] for symbol in symbols}
     day = end - dt.timedelta(days=days * 2)
@@ -639,8 +646,8 @@ def write_csv(path: Path, scored: list[ScoredStock]) -> None:
             writer.writerow([c.symbol, c.name, c.market, item.score, c.close, c.change_pct, c.volume, "；".join(item.reasons), "；".join(item.patterns)])
 
 
-def run_analysis(requested: dt.date, top: int = 20, history_days: int = 45) -> tuple[dt.date, list[ScoredStock], str]:
-    date, rows = previous_trading_day(requested)
+def run_analysis(requested: dt.date, top: int = 20, history_days: int = 45, allow_previous: bool = False) -> tuple[dt.date, list[ScoredStock], str]:
+    date, rows = previous_trading_day(requested) if allow_previous else market_day(requested)
     candidates = pick_ranked_candidates(rows)
     histories = history_for_symbols({c.symbol for c in candidates}, date, days=history_days)
     scored = [score_stock(histories.get(c.symbol, [c])) for c in candidates]

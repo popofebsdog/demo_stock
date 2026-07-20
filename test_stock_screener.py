@@ -1,6 +1,7 @@
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 from send_daily_email import append_send_log, mask_email
 from stock_screener import (
@@ -13,6 +14,7 @@ from stock_screener import (
     parse_quote_table,
     pick_ranked_candidates,
     ranked_group_records,
+    run_analysis,
     scored_records,
     score_stock,
 )
@@ -114,6 +116,11 @@ class StockScreenerTest(unittest.TestCase):
         self.assertEqual([r["symbol"] for r in groups["gainers"]], ["1001", "1003"])
         self.assertEqual([r["symbol"] for r in groups["losers"]], ["1002", "1003"])
 
+    def test_run_analysis_requires_requested_date_data(self):
+        with patch("stock_screener.fetch_market", return_value=[]):
+            with self.assertRaisesRegex(RuntimeError, "沒有當日官方交易資料"):
+                run_analysis(__import__("datetime").date(2026, 7, 20))
+
     def test_scored_records_are_json_ready(self):
         item = score_stock([Candle("2026-07-17", "2330", "台積電", "TWSE", 100, 110, 99, 108, 5000, 8)])
 
@@ -125,10 +132,11 @@ class StockScreenerTest(unittest.TestCase):
     def test_append_send_log_masks_recipient(self):
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "send-log.json"
-            append_send_log(path, "2026-07-17", 50, "dear.user@example.com", "2026-07-18T15:30:00+08:00")
+            append_send_log(path, "2026-07-17", 50, "dear.user@example.com", "2026-07-18T15:30:00+08:00", status="skipped-stale")
 
             text = path.read_text(encoding="utf-8")
             self.assertIn("de***@example.com", text)
+            self.assertIn("skipped-stale", text)
             self.assertNotIn("dear.user@example.com", text)
             self.assertEqual(mask_email("a@example.com"), "a***@example.com")
 
