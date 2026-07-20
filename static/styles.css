@@ -97,6 +97,13 @@ label {
   font-weight: 700;
 }
 
+.mode-hint {
+  margin: -2px 0 2px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 input,
 select,
 button {

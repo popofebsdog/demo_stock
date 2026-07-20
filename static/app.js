@@ -1,12 +1,14 @@
 const form = document.querySelector("#run-form");
 const dateInput = document.querySelector("#date");
 const button = document.querySelector("#run-button");
+const buttonLabel = document.querySelector("#run-button-label");
 const statusEl = document.querySelector("#status");
 const bodyEl = document.querySelector("#result-body");
 const metricDate = document.querySelector("#metric-date");
 const metricCount = document.querySelector("#metric-count");
 const metricScore = document.querySelector("#metric-score");
 const sendLogBody = document.querySelector("#send-log-body");
+const modeHint = document.querySelector("#mode-hint");
 const tabButtons = [...document.querySelectorAll(".tab-button")];
 const sortButtons = [...document.querySelectorAll(".sort-button")];
 const sortState = document.querySelector("#sort-state");
@@ -14,6 +16,7 @@ const sortState = document.querySelector("#sort-state");
 let activeRows = [];
 let activeGroups = null;
 let activeGroup = "volume";
+let localCrawlerMode = false;
 let scoreSortDirection = null;
 
 const groupConfig = {
@@ -23,7 +26,7 @@ const groupConfig = {
 };
 
 dateInput.valueAsDate = new Date();
-loadDateChoices();
+initApp();
 loadSendLog();
 
 form.addEventListener("submit", async (event) => {
@@ -33,8 +36,7 @@ form.addEventListener("submit", async (event) => {
   bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">正在抓官方行情與計算 K 線訊號...</td></tr>`;
 
   try {
-    const params = new URLSearchParams(new FormData(form));
-    const payload = await loadAnalysis(params);
+    const payload = localCrawlerMode ? await runLocalCrawler(new URLSearchParams(new FormData(form))) : await loadLatestStatic();
     render(payload);
   } catch (error) {
     statusEl.textContent = "失敗";
@@ -60,23 +62,63 @@ sortButtons.forEach((button) => {
   });
 });
 
-async function loadAnalysis(params) {
-  const requestedDate = params.get("date");
-  const apiResponse = await fetch(`api/run?${params.toString()}`);
-  if (apiResponse.ok) return apiResponse.json();
-  const staticPath = requestedDate ? `data/${requestedDate}.json` : "latest.json";
-  let staticResponse = await fetch(staticPath);
-  if (!staticResponse.ok) staticResponse = await fetch("latest.json");
-  if (staticResponse.ok) {
-    const payload = await staticResponse.json();
-    payload.staticMode = true;
-    if (requestedDate && payload.date !== requestedDate) {
-      payload.requestedMissing = requestedDate;
-    }
-    return payload;
+async function initApp() {
+  localCrawlerMode = await hasLocalApi();
+  if (localCrawlerMode) {
+    setLocalCrawlerMode();
+    return;
   }
-  const errorPayload = await apiResponse.json().catch(() => ({}));
-  throw new Error(errorPayload.error || "找不到本機 API，也沒有 GitHub Pages 最新資料");
+  setStaticMode();
+  try {
+    render(await loadLatestStatic());
+  } catch (error) {
+    statusEl.textContent = "無資料";
+    bodyEl.innerHTML = `<tr class="empty-row"><td colspan="8">${escapeHtml(error.message)}</td></tr>`;
+  }
+}
+
+async function hasLocalApi() {
+  const response = await fetch("api/health", { cache: "no-store" }).catch(() => null);
+  if (!response?.ok) return false;
+  const payload = await response.json().catch(() => ({}));
+  return payload.ok === true;
+}
+
+function setLocalCrawlerMode() {
+  statusEl.textContent = "本機爬蟲模式";
+  modeHint.textContent = "本機端可自由選日期，會即時連 TWSE / TPEx 抓資料。";
+  button.disabled = false;
+  buttonLabel.textContent = "跑本機爬蟲";
+  dateInput.disabled = false;
+  dateInput.removeAttribute("list");
+  dateInput.removeAttribute("min");
+  dateInput.max = new Date().toISOString().slice(0, 10);
+}
+
+function setStaticMode() {
+  statusEl.textContent = "GitHub Pages 靜態模式";
+  modeHint.textContent = "線上端不做即時爬蟲，只顯示排程產出的最新結果與寄送紀錄。";
+  button.disabled = false;
+  buttonLabel.textContent = "載入最新結果";
+  dateInput.disabled = true;
+  dateInput.removeAttribute("list");
+  dateInput.removeAttribute("min");
+  dateInput.removeAttribute("max");
+}
+
+async function runLocalCrawler(params) {
+  const response = await fetch(`api/run?${params.toString()}`, { cache: "no-store" });
+  if (response.ok) return response.json();
+  const errorPayload = await response.json().catch(() => ({}));
+  throw new Error(errorPayload.error || "本機爬蟲失敗，請確認日期是否有交易資料。");
+}
+
+async function loadLatestStatic() {
+  const response = await fetch("latest.json", { cache: "no-store" });
+  if (!response.ok) throw new Error("找不到最新靜態資料。");
+  const payload = await response.json();
+  payload.staticMode = true;
+  return payload;
 }
 
 async function loadSendLog() {
@@ -101,8 +143,9 @@ async function loadSendLog() {
 }
 
 function render(payload) {
-  statusEl.textContent = payload.requestedMissing ? `Pages 無 ${payload.requestedMissing}` : payload.staticMode ? "Pages 靜態資料" : "完成";
+  statusEl.textContent = payload.staticMode ? "GitHub Pages 靜態模式" : "本機爬蟲完成";
   metricDate.textContent = payload.date;
+  if (payload.date) dateInput.value = payload.date;
   metricCount.textContent = payload.count.toLocaleString("zh-TW");
   const records = payload.records || [];
   metricScore.textContent = records[0]?.score ?? "--";
@@ -199,26 +242,6 @@ function renderRows(rows) {
       </tr>
     `;
   }).join("") || `<tr class="empty-row"><td colspan="8">沒有可用資料。</td></tr>`;
-}
-
-async function loadDateChoices() {
-  const response = await fetch("dates.json").catch(() => null);
-  if (!response?.ok) return;
-  const payload = await response.json();
-  const dates = payload.dates || [];
-  if (!dates.length) return;
-  dateInput.value = dates[0];
-  dateInput.min = dates[dates.length - 1];
-  dateInput.max = dates[0];
-  const list = document.createElement("datalist");
-  list.id = "available-dates";
-  dates.forEach((date) => {
-    const option = document.createElement("option");
-    option.value = date;
-    list.appendChild(option);
-  });
-  document.body.appendChild(list);
-  dateInput.setAttribute("list", "available-dates");
 }
 
 function formatNumber(value) {

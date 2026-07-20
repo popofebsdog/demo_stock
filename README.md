@@ -18,8 +18,9 @@
 
 這個系統分成兩條 pipeline：
 
-- 每日自動寄信 pipeline：每個台股交易日台灣時間 15:20 先更新最新交易日資料，15:30 自動寄出前 50 筆觀察名單。這條線不需要人工挑日期、不需要按按鈕。
-- 日常查詢 pipeline：網站提供日期和筆數查詢，給你臨時回看某一天的分析結果，或在動態主機上即時重跑指定日期。
+- 每日自動寄信 pipeline：每個台股交易日台灣時間 15:20 先更新最新交易日資料，15:30 自動寄出成交量、漲幅、跌幅三表各前 20 筆。這條線不需要人工挑日期、不需要按按鈕。
+- 本機查詢 pipeline：本機 `demo_server.py` 提供 `/api/run`，網站可自由選日期並即時連 TWSE / TPEx 重跑爬蟲與分析。
+- GitHub Pages pipeline：線上端只讀排程產出的最新靜態結果與寄送紀錄，不提供任意日期即時爬蟲。
 
 ## 使用
 
@@ -40,10 +41,10 @@ http://127.0.0.1:8000
 GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 repo 另外提供 Pages 版本：
 
 - `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:20 觸發，更新最新交易日資料。
-- `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 讀取最新資料並自動寄出前 50 筆觀察名單。
+- `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 讀取最新資料並自動寄出三表各前 20 筆觀察名單。
 - `generate_static_data.py` 會跑完整分析流程並輸出 `static/data/YYYY-MM-DD.json`、`static/latest.json`、`static/dates.json`。
-- Pages 網頁可挑已產生的日期，讀取對應 JSON 顯示名單。
-- 本機開發時，網頁優先呼叫 `/api/run`，可以按日期即時重跑。
+- Pages 網頁不提供任意日期爬蟲；它只顯示最新靜態結果與最近寄送紀錄。
+- 本機開發時，網頁會偵測 `/api/health`，成功後切成「本機爬蟲模式」，可自由選日期即時重跑。
 
 注意：private repo 是否能啟用 GitHub Pages 取決於 GitHub 帳號/組織方案。如果 GitHub 回覆 `Your current plan does not support GitHub Pages for this repository`，代表 repo 可以維持 private，但 Pages 無法啟用；可改成 public repo、升級方案，或改部署到 Vercel / Netlify。
 
@@ -76,7 +77,7 @@ Render 部署流程：
 python send_daily_email.py
 ```
 
-這個腳本不重新爬資料，只寄出 15:20 產生好的前 50 筆觀察名單，讓寄信步驟更穩定。
+這個腳本不重新爬資料，只寄出 15:20 產生好的三表各前 20 筆觀察名單，讓寄信步驟更穩定。
 
 需要在 GitHub repo 的 `Settings > Secrets and variables > Actions` 新增：
 
