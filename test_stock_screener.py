@@ -47,14 +47,59 @@ class StockScreenerTest(unittest.TestCase):
 
     def test_candlestick_patterns_detects_bullish_engulfing_and_hammer(self):
         candles = [
-            Candle("2026-07-16", "2330", "台積電", "TWSE", 100, 101, 94, 96, 1000, -4),
-            Candle("2026-07-17", "2330", "台積電", "TWSE", 95, 106, 70, 105, 3000, 9.38),
+            Candle("2026-07-13", "2330", "台積電", "TWSE", 106, 107, 104, 105, 1000, -1),
+            Candle("2026-07-14", "2330", "台積電", "TWSE", 105, 106, 101, 102, 1000, -3),
+            Candle("2026-07-15", "2330", "台積電", "TWSE", 102, 103, 99, 100, 1000, -2),
+            Candle("2026-07-16", "2330", "台積電", "TWSE", 101, 102, 97, 98, 1000, -2),
+            Candle("2026-07-17", "2330", "台積電", "TWSE", 97, 103, 96, 102, 3000, 4.08),
         ]
 
         patterns = candlestick_patterns(candles)
 
         self.assertIn("陽包陰", patterns)
+
+    def test_candlestick_patterns_require_reversal_context(self):
+        candles = [
+            Candle("2026-07-15", "2330", "台積電", "TWSE", 100, 103, 99, 102, 1000, 2),
+            Candle("2026-07-16", "2330", "台積電", "TWSE", 101, 102, 97, 98, 1000, -3),
+            Candle("2026-07-17", "2330", "台積電", "TWSE", 97, 103, 96, 102, 3000, 4.08),
+        ]
+
+        patterns = candlestick_patterns(candles)
+
+        self.assertNotIn("陽包陰", patterns)
+
+    def test_candlestick_patterns_detects_hammer_after_downtrend(self):
+        candles = [
+            Candle("2026-07-13", "2330", "台積電", "TWSE", 108, 109, 105, 106, 1000, -1),
+            Candle("2026-07-14", "2330", "台積電", "TWSE", 106, 107, 102, 103, 1000, -3),
+            Candle("2026-07-15", "2330", "台積電", "TWSE", 103, 104, 99, 100, 1000, -3),
+            Candle("2026-07-16", "2330", "台積電", "TWSE", 100, 101, 96, 97, 1000, -3),
+            Candle("2026-07-17", "2330", "台積電", "TWSE", 95, 97, 90, 96, 3000, -1),
+        ]
+
+        patterns = candlestick_patterns(candles)
+
         self.assertIn("錘子線", patterns)
+
+    def test_candlestick_patterns_detects_stars_with_long_first_body(self):
+        morning = [
+            Candle("2026-07-13", "2330", "台積電", "TWSE", 112, 113, 109, 110, 1000, -1),
+            Candle("2026-07-14", "2330", "台積電", "TWSE", 110, 111, 105, 106, 1000, -4),
+            Candle("2026-07-15", "2330", "台積電", "TWSE", 106, 107, 99, 100, 1000, -6),
+            Candle("2026-07-16", "2330", "台積電", "TWSE", 99, 100, 98, 99.5, 1000, -0.5),
+            Candle("2026-07-17", "2330", "台積電", "TWSE", 100, 105, 99, 104, 3000, 4.5),
+        ]
+        evening = [
+            Candle("2026-07-13", "2330", "台積電", "TWSE", 98, 101, 97, 100, 1000, 2),
+            Candle("2026-07-14", "2330", "台積電", "TWSE", 100, 105, 99, 104, 1000, 4),
+            Candle("2026-07-15", "2330", "台積電", "TWSE", 104, 111, 103, 110, 1000, 6),
+            Candle("2026-07-16", "2330", "台積電", "TWSE", 110, 112, 109, 110.5, 1000, 0.5),
+            Candle("2026-07-17", "2330", "台積電", "TWSE", 110, 111, 104, 106, 3000, -4.1),
+        ]
+
+        self.assertIn("晨星", candlestick_patterns(morning))
+        self.assertIn("黃昏星", candlestick_patterns(evening))
 
     def test_score_stock_rewards_bullish_volume_and_trend(self):
         candles = [

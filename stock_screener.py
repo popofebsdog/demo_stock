@@ -137,6 +137,30 @@ def is_green(candle: Candle) -> bool:
     return candle.close < candle.open
 
 
+def is_long_body(candle: Candle, min_ratio: float = 0.55) -> bool:
+    return body(candle) >= candle_range(candle) * min_ratio
+
+
+def is_small_body(candle: Candle, max_ratio: float = 0.35) -> bool:
+    return body(candle) <= candle_range(candle) * max_ratio
+
+
+def has_downtrend(candles: list[Candle], lookback: int = 5) -> bool:
+    sample = candles[-lookback:]
+    if len(sample) < 3:
+        return False
+    lower_closes = sum(cur.close < prev.close for prev, cur in zip(sample, sample[1:]))
+    return sample[-1].close < sample[0].close and lower_closes >= len(sample) // 2
+
+
+def has_uptrend(candles: list[Candle], lookback: int = 5) -> bool:
+    sample = candles[-lookback:]
+    if len(sample) < 3:
+        return False
+    higher_closes = sum(cur.close > prev.close for prev, cur in zip(sample, sample[1:]))
+    return sample[-1].close > sample[0].close and higher_closes >= len(sample) // 2
+
+
 def candlestick_patterns(candles: list[Candle]) -> tuple[str, ...]:
     if not candles:
         return ()
@@ -149,7 +173,7 @@ def candlestick_patterns(candles: list[Candle]) -> tuple[str, ...]:
 
     if real_body <= total * 0.12:
         patterns.append("十字星")
-    if lower >= max(real_body * 2, total * 0.35) and upper <= total * 0.25:
+    if has_downtrend(candles[:-1]) and is_small_body(last) and lower >= real_body * 2 and lower >= total * 0.35 and upper <= total * 0.25:
         patterns.append("錘子線")
     if real_body >= total * 0.75 and is_red(last):
         patterns.append("大紅K")
@@ -158,21 +182,23 @@ def candlestick_patterns(candles: list[Candle]) -> tuple[str, ...]:
 
     if len(candles) >= 2:
         prev = candles[-2]
-        if is_green(prev) and is_red(last) and last.open < prev.close and last.close > prev.open:
+        bullish_context = has_downtrend(candles[:-1])
+        bearish_context = has_uptrend(candles[:-1])
+        if bullish_context and is_green(prev) and is_red(last) and body(last) > body(prev) and last.open < prev.close and last.close > prev.open:
             patterns.append("陽包陰")
-        if is_red(prev) and is_green(last) and last.open > prev.close and last.close < prev.open:
+        if bearish_context and is_red(prev) and is_green(last) and body(last) > body(prev) and last.open > prev.close and last.close < prev.open:
             patterns.append("陰包陽")
         midpoint = (prev.open + prev.close) / 2
-        if is_green(prev) and is_red(last) and last.open < prev.low and last.close > midpoint:
+        if bullish_context and is_green(prev) and is_long_body(prev) and is_red(last) and last.open < prev.low and midpoint < last.close < prev.open:
             patterns.append("曙光初現")
-        if is_red(prev) and is_green(last) and last.open > prev.high and last.close < midpoint:
+        if bearish_context and is_red(prev) and is_long_body(prev) and is_green(last) and last.open > prev.high and prev.open < last.close < midpoint:
             patterns.append("烏雲罩頂")
 
     if len(candles) >= 3:
         a, b, c = candles[-3:]
-        if is_green(a) and body(b) <= candle_range(b) * 0.35 and is_red(c) and c.close > (a.open + a.close) / 2:
+        if has_downtrend(candles[:-2]) and is_green(a) and is_long_body(a) and is_small_body(b) and is_red(c) and c.close > (a.open + a.close) / 2:
             patterns.append("晨星")
-        if is_red(a) and body(b) <= candle_range(b) * 0.35 and is_green(c) and c.close < (a.open + a.close) / 2:
+        if has_uptrend(candles[:-2]) and is_red(a) and is_long_body(a) and is_small_body(b) and is_green(c) and c.close < (a.open + a.close) / 2:
             patterns.append("黃昏星")
     return tuple(dict.fromkeys(patterns))
 
