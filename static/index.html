@@ -41,7 +41,7 @@
             <li><span>02</span>取成交量 / 漲幅 / 跌幅 Top 100</li>
             <li><span>03</span>補歷史日線計算 MA / MACD / RSI</li>
             <li><span>04</span>套 K 線型態並排序</li>
-            <li><span>05</span>15:30 自動寄出前 50 筆</li>
+            <li><span>05</span>15:30 自動寄出三表各前 20 筆</li>
           </ol>
 
           <section class="score-rules" aria-labelledby="score-rules-title">
@@ -113,17 +113,26 @@
             </div>
           </div>
 
+          <div class="table-toolbar" aria-label="排行榜切換">
+            <div class="tabs" role="tablist" aria-label="排行榜類型">
+              <button type="button" class="tab-button is-active" data-group="volume" role="tab" aria-selected="true">成交量前 50</button>
+              <button type="button" class="tab-button" data-group="gainers" role="tab" aria-selected="false">漲幅前 50</button>
+              <button type="button" class="tab-button" data-group="losers" role="tab" aria-selected="false">跌幅前 50</button>
+            </div>
+            <div class="sort-state" id="sort-state">成交量：高到低</div>
+          </div>
+
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>排名</th>
-                  <th>股票</th>
-                  <th>市場</th>
-                  <th>分數</th>
-                  <th>收盤</th>
-                  <th>漲跌幅</th>
-                  <th>成交量</th>
+                  <th><button type="button" class="sort-button" data-sort="symbol">股票</button></th>
+                  <th><button type="button" class="sort-button" data-sort="market">市場</button></th>
+                  <th><button type="button" class="sort-button" data-sort="score">分數</button></th>
+                  <th><button type="button" class="sort-button" data-sort="close">收盤</button></th>
+                  <th><button type="button" class="sort-button" data-sort="change_pct">漲跌幅</button></th>
+                  <th><button type="button" class="sort-button" data-sort="volume">成交量</button></th>
                   <th>訊號</th>
                 </tr>
               </thead>

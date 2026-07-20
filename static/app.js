@@ -7,6 +7,30 @@ const metricDate = document.querySelector("#metric-date");
 const metricCount = document.querySelector("#metric-count");
 const metricScore = document.querySelector("#metric-score");
 const sendLogBody = document.querySelector("#send-log-body");
+const tabButtons = [...document.querySelectorAll(".tab-button")];
+const sortButtons = [...document.querySelectorAll(".sort-button")];
+const sortState = document.querySelector("#sort-state");
+
+let activeRows = [];
+let activeGroups = null;
+let activeGroup = "volume";
+let sortKey = "volume";
+let sortDirection = "desc";
+
+const groupConfig = {
+  volume: { label: "成交量前 50", sortKey: "volume", sortDirection: "desc" },
+  gainers: { label: "漲幅前 50", sortKey: "change_pct", sortDirection: "desc" },
+  losers: { label: "跌幅前 50", sortKey: "change_pct", sortDirection: "asc" },
+};
+
+const sortLabels = {
+  symbol: "股票",
+  market: "市場",
+  score: "分數",
+  close: "收盤",
+  change_pct: "漲跌幅",
+  volume: "成交量",
+};
 
 dateInput.valueAsDate = new Date();
 loadDateChoices();
@@ -28,6 +52,30 @@ form.addEventListener("submit", async (event) => {
   } finally {
     button.disabled = false;
   }
+});
+
+tabButtons.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    if (!activeGroups) return;
+    activeGroup = tab.dataset.group;
+    const config = groupConfig[activeGroup];
+    sortKey = config.sortKey;
+    sortDirection = config.sortDirection;
+    renderActiveGroup();
+  });
+});
+
+sortButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const nextKey = button.dataset.sort;
+    if (sortKey === nextKey) {
+      sortDirection = sortDirection === "desc" ? "asc" : "desc";
+    } else {
+      sortKey = nextKey;
+      sortDirection = defaultDirection(nextKey);
+    }
+    renderCurrentRows();
+  });
 });
 
 async function loadAnalysis(params) {
@@ -77,22 +125,77 @@ function render(payload) {
   const records = payload.records || [];
   metricScore.textContent = records[0]?.score ?? "--";
   if (payload.groups) {
-    renderGroups(payload.groups);
+    activeGroups = payload.groups;
+    activeGroup = "volume";
+    sortKey = groupConfig.volume.sortKey;
+    sortDirection = groupConfig.volume.sortDirection;
+    renderActiveGroup();
     return;
   }
-  bodyEl.innerHTML = renderRows(records);
+  activeGroups = null;
+  activeRows = records;
+  sortKey = "score";
+  sortDirection = "desc";
+  updateTabs();
+  renderCurrentRows();
 }
 
-function renderGroups(groups) {
-  const labels = [
-    ["volume", "成交量前 50"],
-    ["gainers", "漲幅前 50"],
-    ["losers", "跌幅前 50"],
-  ];
-  bodyEl.innerHTML = labels.map(([key, label]) => `
-    <tr class="group-title"><td colspan="8">${label}</td></tr>
-    ${renderRows(groups[key] || [])}
-  `).join("");
+function renderActiveGroup() {
+  activeRows = activeGroups?.[activeGroup] || [];
+  updateTabs();
+  renderCurrentRows();
+}
+
+function renderCurrentRows() {
+  const sortedRows = sortRows(activeRows, sortKey, sortDirection);
+  bodyEl.innerHTML = renderRows(sortedRows);
+  updateSortState();
+  updateSortButtons();
+}
+
+function sortRows(rows, key, direction) {
+  const multiplier = direction === "desc" ? -1 : 1;
+  return [...rows].sort((a, b) => compareValues(a[key], b[key]) * multiplier);
+}
+
+function compareValues(a, b) {
+  const emptyA = a === null || a === undefined || a === "";
+  const emptyB = b === null || b === undefined || b === "";
+  if (emptyA && emptyB) return 0;
+  if (emptyA) return 1;
+  if (emptyB) return -1;
+  if (typeof a === "number" && typeof b === "number") return a - b;
+  return String(a).localeCompare(String(b), "zh-Hant-u-co-zhuyin", { numeric: true });
+}
+
+function defaultDirection(key) {
+  return ["symbol", "market"].includes(key) ? "asc" : "desc";
+}
+
+function updateTabs() {
+  tabButtons.forEach((tab) => {
+    const selected = Boolean(activeGroups) && tab.dataset.group === activeGroup;
+    tab.classList.toggle("is-active", selected);
+    tab.setAttribute("aria-selected", selected ? "true" : "false");
+    tab.disabled = !activeGroups;
+  });
+}
+
+function updateSortState() {
+  const directionLabel = sortDirection === "desc" ? "高到低" : "低到高";
+  const groupLabel = activeGroups ? groupConfig[activeGroup].label : "觀察名單";
+  sortState.textContent = `${groupLabel} · ${sortLabels[sortKey] || sortKey}：${directionLabel}`;
+}
+
+function updateSortButtons() {
+  sortButtons.forEach((button) => {
+    const selected = button.dataset.sort === sortKey;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-sort", selected ? (sortDirection === "desc" ? "descending" : "ascending") : "none");
+    const baseLabel = sortLabels[button.dataset.sort] || button.textContent.replace(/[▲▼]/g, "").trim();
+    const marker = selected ? (sortDirection === "desc" ? "▼" : "▲") : "";
+    button.textContent = marker ? `${baseLabel} ${marker}` : baseLabel;
+  });
 }
 
 function renderRows(rows) {
