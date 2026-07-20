@@ -14,22 +14,12 @@ const sortState = document.querySelector("#sort-state");
 let activeRows = [];
 let activeGroups = null;
 let activeGroup = "volume";
-let sortKey = "volume";
-let sortDirection = "desc";
+let scoreSortDirection = null;
 
 const groupConfig = {
-  volume: { label: "成交量前 50", sortKey: "volume", sortDirection: "desc" },
-  gainers: { label: "漲幅前 50", sortKey: "change_pct", sortDirection: "desc" },
-  losers: { label: "跌幅前 50", sortKey: "change_pct", sortDirection: "asc" },
-};
-
-const sortLabels = {
-  symbol: "股票",
-  market: "市場",
-  score: "分數",
-  close: "收盤",
-  change_pct: "漲跌幅",
-  volume: "成交量",
+  volume: { label: "成交量前 50" },
+  gainers: { label: "漲幅前 50" },
+  losers: { label: "跌幅前 50" },
 };
 
 dateInput.valueAsDate = new Date();
@@ -58,22 +48,14 @@ tabButtons.forEach((tab) => {
   tab.addEventListener("click", () => {
     if (!activeGroups) return;
     activeGroup = tab.dataset.group;
-    const config = groupConfig[activeGroup];
-    sortKey = config.sortKey;
-    sortDirection = config.sortDirection;
+    scoreSortDirection = null;
     renderActiveGroup();
   });
 });
 
 sortButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const nextKey = button.dataset.sort;
-    if (sortKey === nextKey) {
-      sortDirection = sortDirection === "desc" ? "asc" : "desc";
-    } else {
-      sortKey = nextKey;
-      sortDirection = defaultDirection(nextKey);
-    }
+    scoreSortDirection = scoreSortDirection === "desc" ? "asc" : "desc";
     renderCurrentRows();
   });
 });
@@ -127,15 +109,13 @@ function render(payload) {
   if (payload.groups) {
     activeGroups = payload.groups;
     activeGroup = "volume";
-    sortKey = groupConfig.volume.sortKey;
-    sortDirection = groupConfig.volume.sortDirection;
+    scoreSortDirection = null;
     renderActiveGroup();
     return;
   }
   activeGroups = null;
   activeRows = records;
-  sortKey = "score";
-  sortDirection = "desc";
+  scoreSortDirection = null;
   updateTabs();
   renderCurrentRows();
 }
@@ -147,7 +127,7 @@ function renderActiveGroup() {
 }
 
 function renderCurrentRows() {
-  const sortedRows = sortRows(activeRows, sortKey, sortDirection);
+  const sortedRows = scoreSortDirection ? sortRows(activeRows, "score", scoreSortDirection) : activeRows;
   bodyEl.innerHTML = renderRows(sortedRows);
   updateSortState();
   updateSortButtons();
@@ -168,10 +148,6 @@ function compareValues(a, b) {
   return String(a).localeCompare(String(b), "zh-Hant-u-co-zhuyin", { numeric: true });
 }
 
-function defaultDirection(key) {
-  return ["symbol", "market"].includes(key) ? "asc" : "desc";
-}
-
 function updateTabs() {
   tabButtons.forEach((tab) => {
     const selected = Boolean(activeGroups) && tab.dataset.group === activeGroup;
@@ -182,18 +158,22 @@ function updateTabs() {
 }
 
 function updateSortState() {
-  const directionLabel = sortDirection === "desc" ? "高到低" : "低到高";
   const groupLabel = activeGroups ? groupConfig[activeGroup].label : "觀察名單";
-  sortState.textContent = `${groupLabel} · ${sortLabels[sortKey] || sortKey}：${directionLabel}`;
+  if (!scoreSortDirection) {
+    sortState.textContent = `${groupLabel} · 原排行榜順序`;
+    return;
+  }
+  const directionLabel = scoreSortDirection === "desc" ? "高到低" : "低到高";
+  sortState.textContent = `${groupLabel} · 分數：${directionLabel}`;
 }
 
 function updateSortButtons() {
   sortButtons.forEach((button) => {
-    const selected = button.dataset.sort === sortKey;
+    const selected = Boolean(scoreSortDirection);
     button.classList.toggle("is-active", selected);
-    button.setAttribute("aria-sort", selected ? (sortDirection === "desc" ? "descending" : "ascending") : "none");
-    const baseLabel = sortLabels[button.dataset.sort] || button.textContent.replace(/[▲▼]/g, "").trim();
-    const marker = selected ? (sortDirection === "desc" ? "▼" : "▲") : "";
+    button.setAttribute("aria-sort", selected ? (scoreSortDirection === "desc" ? "descending" : "ascending") : "none");
+    const baseLabel = "分數";
+    const marker = selected ? (scoreSortDirection === "desc" ? "▼" : "▲") : "";
     button.textContent = marker ? `${baseLabel} ${marker}` : baseLabel;
   });
 }

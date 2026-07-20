@@ -22,14 +22,6 @@
             <label for="date">分析日期</label>
             <input id="date" name="date" type="date">
 
-            <label for="top">顯示筆數</label>
-            <select id="top" name="top">
-              <option value="10">10</option>
-              <option value="20" selected>20</option>
-              <option value="30">30</option>
-              <option value="50">50</option>
-            </select>
-
             <button type="submit" id="run-button">
               <span class="button-icon" aria-hidden="true">▶</span>
               跑分析
@@ -119,7 +111,7 @@
               <button type="button" class="tab-button" data-group="gainers" role="tab" aria-selected="false">漲幅前 50</button>
               <button type="button" class="tab-button" data-group="losers" role="tab" aria-selected="false">跌幅前 50</button>
             </div>
-            <div class="sort-state" id="sort-state">成交量：高到低</div>
+            <div class="sort-state" id="sort-state">原排行榜順序</div>
           </div>
 
           <div class="table-wrap">
@@ -127,12 +119,12 @@
               <thead>
                 <tr>
                   <th>排名</th>
-                  <th><button type="button" class="sort-button" data-sort="symbol">股票</button></th>
-                  <th><button type="button" class="sort-button" data-sort="market">市場</button></th>
+                  <th>股票</th>
+                  <th>市場</th>
                   <th><button type="button" class="sort-button" data-sort="score">分數</button></th>
-                  <th><button type="button" class="sort-button" data-sort="close">收盤</button></th>
-                  <th><button type="button" class="sort-button" data-sort="change_pct">漲跌幅</button></th>
-                  <th><button type="button" class="sort-button" data-sort="volume">成交量</button></th>
+                  <th>收盤</th>
+                  <th>漲跌幅</th>
+                  <th>成交量</th>
                   <th>訊號</th>
                 </tr>
               </thead>
