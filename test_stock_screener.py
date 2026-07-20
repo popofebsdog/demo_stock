@@ -13,6 +13,7 @@ from stock_screener import (
     build_html_report,
     build_report,
     candlestick_patterns,
+    has_market_data,
     parse_number,
     parse_openai_json_output,
     parse_quote_table,
@@ -29,6 +30,10 @@ class StockScreenerTest(unittest.TestCase):
         self.assertEqual(parse_number("1,234,567"), 1234567)
         self.assertEqual(parse_number("+3.21%"), 3.21)
         self.assertIsNone(parse_number("--"))
+
+    def test_has_market_data_rejects_no_data_cache(self):
+        self.assertFalse(has_market_data({"stat": "很抱歉，沒有符合條件的資料!", "type": "ALLBUT0999"}))
+        self.assertTrue(has_market_data({"stat": "OK", "tables": [{"data": [["0050"]]}]}))
 
     def test_pick_ranked_candidates_deduplicates_three_top_lists(self):
         rows = [

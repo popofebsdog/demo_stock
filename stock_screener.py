@@ -758,7 +758,10 @@ def cache_path(market: str, date: dt.date) -> Path:
 def get_json(url: str, params: dict[str, str], cache_file: Path) -> object:
     CACHE_DIR.mkdir(exist_ok=True)
     if cache_file.exists():
-        return json.loads(cache_file.read_text(encoding="utf-8"))
+        cached = json.loads(cache_file.read_text(encoding="utf-8"))
+        if has_market_data(cached):
+            return cached
+        cache_file.unlink(missing_ok=True)
     full_url = url + "?" + urllib.parse.urlencode(params)
     request = urllib.request.Request(full_url, headers={"User-Agent": "demo-stock-screener/1.0"})
     context = ssl_context()
@@ -778,6 +781,20 @@ def get_json(url: str, params: dict[str, str], cache_file: Path) -> object:
     cache_file.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     time.sleep(0.2)
     return data
+
+
+def has_market_data(data: object) -> bool:
+    if not isinstance(data, dict):
+        return False
+    tables = data.get("tables")
+    if isinstance(tables, list) and any(isinstance(table, dict) and table.get("data") for table in tables):
+        return True
+    if data.get("data"):
+        return True
+    if data.get("aaData"):
+        return True
+    stat = str(data.get("stat", "")).lower()
+    return stat == "ok"
 
 
 def ssl_context() -> ssl.SSLContext:

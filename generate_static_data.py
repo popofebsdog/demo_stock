@@ -7,7 +7,7 @@ import argparse
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from stock_screener import apply_ai_reviews, ranked_group_records, records_for_ai_review, review_records_with_openai, run_analysis, scored_records
+from stock_screener import apply_ai_reviews, load_env_file, ranked_group_records, records_for_ai_review, review_records_with_openai, run_analysis, scored_records
 
 
 def build_payload(requested: dt.date) -> dict[str, object]:
@@ -54,6 +54,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    load_env_file()
     args = parse_args()
     today = dt.date.fromisoformat(args.date) if args.date else dt.datetime.now(ZoneInfo("Asia/Taipei")).date()
     seen: set[str] = set()
