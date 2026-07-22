@@ -1,6 +1,13 @@
 {
   "records": [
     {
+      "date": "2026-07-22",
+      "sent_at": "2026-07-22T17:42:44+08:00",
+      "top": 20,
+      "recipient": "de***@hotmail.com",
+      "status": "sent"
+    },
+    {
       "date": "2026-07-21",
       "sent_at": "2026-07-21T17:50:09+08:00",
       "top": 20,
