@@ -5,6 +5,13 @@
       "sent_at": "2026-08-04T18:02:25+08:00",
       "top": 20,
       "recipient": "de***@hotmail.com",
+      "status": "skipped-stale"
+    },
+    {
+      "date": "2026-08-04",
+      "sent_at": "2026-08-04T18:02:25+08:00",
+      "top": 20,
+      "recipient": "de***@hotmail.com",
       "status": "sent"
     },
     {
