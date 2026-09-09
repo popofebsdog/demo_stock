@@ -1,6 +1,13 @@
 {
   "records": [
     {
+      "date": "2026-09-09",
+      "sent_at": "2026-09-09T20:22:49+08:00",
+      "top": 20,
+      "recipient": "de***@hotmail.com",
+      "status": "sent"
+    },
+    {
       "date": "2026-09-08",
       "sent_at": "2026-09-08T20:11:17+08:00",
       "top": 20,
@@ -199,13 +206,6 @@
     {
       "date": "2026-07-30",
       "sent_at": "2026-07-30T17:46:16+08:00",
-      "top": 20,
-      "recipient": "de***@hotmail.com",
-      "status": "sent"
-    },
-    {
-      "date": "2026-07-29",
-      "sent_at": "2026-07-29T18:01:22+08:00",
       "top": 20,
       "recipient": "de***@hotmail.com",
       "status": "sent"
