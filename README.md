@@ -1,6 +1,6 @@
 # 台股隔日觀察名單
 
-這是一個台股隔日觀察名單自動化系統：每天抓證交所 TWSE 和櫃買 TPEx 公開行情，取前一交易日的成交量 Top 100、漲幅 Top 100、跌幅 Top 100，套用 MA / MACD / RSI / 成交量 / K 線型態規則，輸出隔天觀察名單，並在 15:30 自動寄出 Email。
+這是一個台股隔日觀察名單自動化系統：每天抓證交所 TWSE 和櫃買 TPEx 公開行情，取前一交易日的成交量 Top 100、漲幅 Top 100、跌幅 Top 100，套用 MA / MACD / RSI / 成交量 / K 線型態規則，輸出隔天觀察名單。Email 寄送程式保留，但目前已暫停自動寄信。
 
 ## 這個系統解決什麼
 
@@ -10,7 +10,7 @@
 - 先聚焦有成交量、強勢漲幅、弱勢跌幅的活躍標的。
 - 把 K 線圖片裡的判斷流程轉成固定分數，降低憑感覺選股。
 - 每天產出可追蹤的 TXT / CSV / 網頁名單，方便隔天開盤前複盤。
-- 可接 Email 排程，在台灣時間 15:30 收到隔天觀察名單。
+- 可接 Email 排程；目前寄信 workflow 已暫停，不會自動寄出。
 
 這不是自動下單，也不是保證獲利模型；它解決的是「每天快速整理候選股」和「用一致規則篩掉雜訊」。
 
@@ -18,11 +18,11 @@
 
 這個系統分成兩條 pipeline：
 
-- 每日自動寄信 pipeline：每個台股交易日台灣時間 15:20 先更新最新交易日資料，15:30 自動寄出成交量、漲幅、跌幅三表各前 20 筆。這條線不需要人工挑日期、不需要按按鈕。
+- 每日資料更新 pipeline：每個台股交易日台灣時間 15:20 更新最新交易日資料。15:30 自動寄信目前已暫停。
 - 本機查詢 pipeline：本機 `demo_server.py` 提供 `/api/run`，網站可自由選日期並即時連 TWSE / TPEx 重跑爬蟲與分析。
 - GitHub Pages pipeline：線上端只讀排程產出的最新靜態結果與寄送紀錄，不提供任意日期即時爬蟲。
 
-查詢與寄信都不會用舊交易日資料冒充當日資料：指定日期沒有官方資料時，本機查詢會顯示錯誤；GitHub Pages 的最新資料若不是台灣今天，也不顯示表格；寄信 workflow 會記錄 `skipped-stale` 並略過寄信。
+查詢不會用舊交易日資料冒充當日資料：指定日期沒有官方資料時，本機查詢會顯示錯誤；GitHub Pages 的最新資料若不是台灣今天，也不顯示表格。寄信 workflow 目前已暫停。
 
 ## 使用
 
@@ -43,7 +43,7 @@ http://127.0.0.1:8000
 GitHub Pages 只能提供靜態檔，不能直接執行 Python 爬蟲。這個 repo 另外提供 Pages 版本：
 
 - `.github/workflows/update-watchlist.yml` 每個台股交易日台灣時間 15:20 觸發，更新最新交易日資料。
-- `.github/workflows/send-daily-email.yml` 每個台股交易日台灣時間 15:30 讀取最新資料並自動寄出三表各前 20 筆觀察名單。
+- `.github/workflows/send-daily-email.yml` 目前是停用占位 workflow，不排程、不寄信、不讀 SMTP secret。
 - `generate_static_data.py` 會跑完整分析流程並輸出 `static/data/YYYY-MM-DD.json`、`static/latest.json`、`static/dates.json`。
 - Pages 網頁不提供任意日期爬蟲；它只顯示最新靜態結果與最近寄送紀錄。
 - 本機開發時，網頁會偵測 `/api/health`，成功後切成「本機爬蟲模式」，可自由選日期即時重跑。
@@ -66,20 +66,20 @@ Render 部署流程：
 3. Render 會讀 `render.yaml`。
 4. 部署完成後打開 Render URL，就可以在網頁上挑日期即時跑分析。
 
-## 每日 15:30 自動寄信
+## Email 寄送
 
-正式的零人力寄信由 GitHub Actions 負責：
+Email 寄送功能的程式碼仍保留，但目前 GitHub Actions 自動寄信已暫停：
 
 - 15:20：`.github/workflows/update-watchlist.yml` 更新 `static/latest.json`。
-- 15:30：`.github/workflows/send-daily-email.yml` 讀取 `static/latest.json` 並寄出 Email。
+- 15:30：寄信排程已移除；`.github/workflows/send-daily-email.yml` 只會印出停用訊息。
 
-寄信 workflow 執行：
+若之後要恢復寄信，原本寄信腳本是：
 
 ```bash
 python send_daily_email.py
 ```
 
-這個腳本不重新爬資料，只寄出 15:20 產生好的三表各前 20 筆觀察名單，讓寄信步驟更穩定。
+這個腳本不重新爬資料，只寄出 15:20 產生好的三表各前 20 筆觀察名單。
 
 需要在 GitHub repo 的 `Settings > Secrets and variables > Actions` 新增：
 
@@ -93,7 +93,7 @@ EMAIL_TO
 OPENAI_API_KEY
 ```
 
-寄信成功後，workflow 會更新 `static/send-log.json`，前端會顯示最近寄送紀錄。
+寄信 workflow 暫停期間不會更新 `static/send-log.json`；前端仍會顯示既有寄送紀錄。
 
 `OPENAI_API_KEY` 用於 AI 覆核；未設定時系統會跳過覆核，仍照原本規則產生名單。
 
@@ -110,13 +110,13 @@ watchlist_YYYYMMDD.txt
 watchlist_YYYYMMDD.csv
 ```
 
-寄 Email 前，建立 `.env`：
+若之後要手動寄 Email，先建立 `.env`：
 
 ```bash
 cp .env.example .env
 ```
 
-再把 `.env` 裡的帳號、app password、收件人改成你的資料。寄送：
+再把 `.env` 裡的帳號、app password、收件人改成你的資料。手動寄送：
 
 ```bash
 python3 stock_screener.py --send-email
@@ -124,9 +124,9 @@ python3 stock_screener.py --send-email
 
 Gmail 要使用「應用程式密碼」，不要用登入密碼。
 
-## 每天 15:30 自動執行
+## 本機 15:30 自動執行
 
-macOS 可用 `launchd`。建立 `~/Library/LaunchAgents/com.demo-stock.screener.plist`：
+以下是保留的 macOS `launchd` 範例，目前不建議載入，避免恢復本機自動寄信。建立 `~/Library/LaunchAgents/com.demo-stock.screener.plist`：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -159,7 +159,7 @@ macOS 可用 `launchd`。建立 `~/Library/LaunchAgents/com.demo-stock.screener.
 </plist>
 ```
 
-載入：
+若之後要恢復本機自動寄信，再載入：
 
 ```bash
 launchctl load ~/Library/LaunchAgents/com.demo-stock.screener.plist
