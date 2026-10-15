@@ -1,0 +1,3204 @@
+{
+  "date": "2026-10-15",
+  "top": 50,
+  "count": 261,
+  "records": [
+    {
+      "symbol": "2886",
+      "name": "兆豐金",
+      "market": "TWSE",
+      "score": 6,
+      "close": 52.5,
+      "change_pct": 2.7397260273972575,
+      "volume": 46916842,
+      "reasons": [
+        "站上MA20(50.21)",
+        "MACD動能轉強",
+        "RSI健康(64.3)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "4961",
+      "name": "天鈺",
+      "market": "TWSE",
+      "score": 6,
+      "close": 186.5,
+      "change_pct": 1.912568306010929,
+      "volume": 1792622,
+      "reasons": [
+        "站上MA20(181.68)",
+        "MACD動能轉強",
+        "RSI健康(56.8)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "4924",
+      "name": "欣厚-KY",
+      "market": "TPEx",
+      "score": 6,
+      "close": 20.15,
+      "change_pct": 9.809264305177116,
+      "volume": 1159250,
+      "reasons": [
+        "站上MA20(16.21)",
+        "MACD動能轉強",
+        "RSI健康(55.0)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "6756",
+      "name": "威鋒電子",
+      "market": "TWSE",
+      "score": 6,
+      "close": 100.0,
+      "change_pct": 2.774922918807814,
+      "volume": 318021,
+      "reasons": [
+        "站上MA20(97.33)",
+        "MACD動能轉強",
+        "RSI健康(58.7)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2380",
+      "name": "虹光",
+      "market": "TWSE",
+      "score": 6,
+      "close": 17.15,
+      "change_pct": 9.935897435897441,
+      "volume": 273588,
+      "reasons": [
+        "站上MA20(16.51)",
+        "MACD動能轉強",
+        "RSI健康(57.8)",
+        "上漲放量",
+        "多方K線:大紅K、晨星"
+      ],
+      "patterns": [
+        "大紅K",
+        "晨星"
+      ]
+    },
+    {
+      "symbol": "3492",
+      "name": "長盛",
+      "market": "TPEx",
+      "score": 6,
+      "close": 19.6,
+      "change_pct": 1.8181818181818257,
+      "volume": 32061,
+      "reasons": [
+        "站上MA20(19.18)",
+        "MACD動能轉強",
+        "RSI健康(60.0)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2924",
+      "name": "宏太-KY",
+      "market": "TPEx",
+      "score": 6,
+      "close": 18.5,
+      "change_pct": 6.017191977077369,
+      "volume": 20217,
+      "reasons": [
+        "站上MA20(18.24)",
+        "MACD動能轉強",
+        "RSI健康(45.0)",
+        "上漲放量",
+        "多方K線:錘子線"
+      ],
+      "patterns": [
+        "錘子線"
+      ]
+    },
+    {
+      "symbol": "4904",
+      "name": "遠傳",
+      "market": "TWSE",
+      "score": 5,
+      "close": 113.0,
+      "change_pct": 4.62962962962963,
+      "volume": 15938061,
+      "reasons": [
+        "站上MA20(106.12)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "5876",
+      "name": "上海商銀",
+      "market": "TWSE",
+      "score": 5,
+      "close": 53.4,
+      "change_pct": 3.288201160541592,
+      "volume": 13297970,
+      "reasons": [
+        "站上MA20(49.77)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2033",
+      "name": "佳大",
+      "market": "TWSE",
+      "score": 5,
+      "close": 54.4,
+      "change_pct": 9.898989898989896,
+      "volume": 3249946,
+      "reasons": [
+        "站上MA20(42.49)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2429",
+      "name": "銘旺科",
+      "market": "TWSE",
+      "score": 5,
+      "close": 38.2,
+      "change_pct": 9.298998569384835,
+      "volume": 2756838,
+      "reasons": [
+        "站上MA20(31.47)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "6925",
+      "name": "意藍",
+      "market": "TPEx",
+      "score": 5,
+      "close": 82.3,
+      "change_pct": 9.87983978638185,
+      "volume": 1674384,
+      "reasons": [
+        "站上MA20(68.33)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "4426",
+      "name": "利勤",
+      "market": "TWSE",
+      "score": 5,
+      "close": 8.62,
+      "change_pct": 8.02005012531328,
+      "volume": 1183222,
+      "reasons": [
+        "站上MA20(7.69)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "3485",
+      "name": "敘豐",
+      "market": "TPEx",
+      "score": 5,
+      "close": 248.0,
+      "change_pct": 9.977827050997783,
+      "volume": 757656,
+      "reasons": [
+        "站上MA20(208.88)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2850",
+      "name": "新產",
+      "market": "TWSE",
+      "score": 5,
+      "close": 173.0,
+      "change_pct": 2.976190476190476,
+      "volume": 683479,
+      "reasons": [
+        "站上MA20(161.30)",
+        "MACD動能轉強",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "1439",
+      "name": "雋揚",
+      "market": "TWSE",
+      "score": 5,
+      "close": 28.95,
+      "change_pct": 1.5789473684210502,
+      "volume": 22458,
+      "reasons": [
+        "站上MA20(28.57)",
+        "MACD動能轉強",
+        "RSI健康(46.0)",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "8409",
+      "name": "商之器",
+      "market": "TPEx",
+      "score": 5,
+      "close": 18.4,
+      "change_pct": 1.9390581717451605,
+      "volume": 10023,
+      "reasons": [
+        "站上MA20(18.05)",
+        "MACD動能轉強",
+        "RSI健康(59.4)",
+        "多方K線:晨星"
+      ],
+      "patterns": [
+        "晨星"
+      ]
+    },
+    {
+      "symbol": "5601",
+      "name": "台聯櫃",
+      "market": "TPEx",
+      "score": 5,
+      "close": 32.9,
+      "change_pct": 2.4922118380062215,
+      "volume": 6472,
+      "reasons": [
+        "站上MA20(30.32)",
+        "MACD動能轉強",
+        "RSI健康(59.2)",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2891",
+      "name": "中信金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 72.9,
+      "change_pct": 2.1008403361344534,
+      "volume": 77882506,
+      "reasons": [
+        "站上MA20(69.42)",
+        "MACD動能轉強",
+        "RSI健康(64.3)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2890",
+      "name": "永豐金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 45.6,
+      "change_pct": 3.518728717366622,
+      "volume": 63323507,
+      "reasons": [
+        "站上MA20(44.80)",
+        "MACD動能轉強",
+        "RSI健康(51.0)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2884",
+      "name": "玉山金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 48.8,
+      "change_pct": 3.1712473572938693,
+      "volume": 63086494,
+      "reasons": [
+        "站上MA20(45.96)",
+        "MACD動能轉強",
+        "RSI健康(67.7)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2885",
+      "name": "元大金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 72.7,
+      "change_pct": 0.6925207756232686,
+      "volume": 43392893,
+      "reasons": [
+        "站上MA20(69.47)",
+        "MACD動能轉強",
+        "RSI健康(58.0)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "6209",
+      "name": "今國光",
+      "market": "TWSE",
+      "score": 4,
+      "close": 93.0,
+      "change_pct": 3.563474387527843,
+      "volume": 41803895,
+      "reasons": [
+        "站上MA20(83.85)",
+        "MACD動能轉強",
+        "RSI過熱(84.1)",
+        "上漲放量",
+        "多方K線:陽包陰"
+      ],
+      "patterns": [
+        "陽包陰"
+      ]
+    },
+    {
+      "symbol": "5880",
+      "name": "合庫金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 27.5,
+      "change_pct": 1.2891344383057144,
+      "volume": 39659352,
+      "reasons": [
+        "站上MA20(26.72)",
+        "MACD動能轉強",
+        "RSI健康(56.5)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2892",
+      "name": "第一金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 41.6,
+      "change_pct": 2.3370233702337098,
+      "volume": 37121953,
+      "reasons": [
+        "站上MA20(39.51)",
+        "MACD動能轉強",
+        "RSI健康(63.9)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2801",
+      "name": "彰銀",
+      "market": "TWSE",
+      "score": 4,
+      "close": 29.15,
+      "change_pct": 1.2152777777777828,
+      "volume": 26796152,
+      "reasons": [
+        "站上MA20(28.15)",
+        "MACD動能轉強",
+        "RSI健康(61.8)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2880",
+      "name": "華南金",
+      "market": "TWSE",
+      "score": 4,
+      "close": 49.65,
+      "change_pct": 1.5337423312883436,
+      "volume": 22673121,
+      "reasons": [
+        "站上MA20(46.66)",
+        "MACD動能轉強",
+        "RSI健康(64.1)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "9904",
+      "name": "寶成",
+      "market": "TWSE",
+      "score": 4,
+      "close": 26.25,
+      "change_pct": 0.5747126436781554,
+      "volume": 21446343,
+      "reasons": [
+        "站上MA20(24.98)",
+        "MACD動能轉強",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "3045",
+      "name": "台灣大",
+      "market": "TWSE",
+      "score": 4,
+      "close": 131.0,
+      "change_pct": 3.557312252964427,
+      "volume": 16412294,
+      "reasons": [
+        "站上MA20(123.50)",
+        "MACD動能轉強",
+        "RSI健康(69.0)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "4977",
+      "name": "眾達-KY",
+      "market": "TWSE",
+      "score": 4,
+      "close": 188.0,
+      "change_pct": -1.5706806282722512,
+      "volume": 16157129,
+      "reasons": [
+        "站上MA20(174.05)",
+        "MACD動能轉強",
+        "RSI健康(64.5)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "5871",
+      "name": "中租-KY",
+      "market": "TWSE",
+      "score": 4,
+      "close": 108.5,
+      "change_pct": null,
+      "volume": 16098331,
+      "reasons": [
+        "站上MA20(107.95)",
+        "MACD動能轉強",
+        "RSI健康(52.6)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "5904",
+      "name": "寶雅*",
+      "market": "TPEx",
+      "score": 4,
+      "close": 73.1,
+      "change_pct": 2.0949720670391065,
+      "volume": 9043058,
+      "reasons": [
+        "站上MA20(70.74)",
+        "MACD動能轉強",
+        "RSI健康(59.8)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "6148",
+      "name": "驊宏資",
+      "market": "TPEx",
+      "score": 4,
+      "close": 38.15,
+      "change_pct": 2.553763440860223,
+      "volume": 5994344,
+      "reasons": [
+        "站上MA20(37.95)",
+        "MACD動能轉強",
+        "RSI健康(47.7)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2851",
+      "name": "中再保",
+      "market": "TWSE",
+      "score": 4,
+      "close": 53.2,
+      "change_pct": 2.504816955684002,
+      "volume": 4646813,
+      "reasons": [
+        "站上MA20(47.71)",
+        "MACD動能轉強",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "6885",
+      "name": "全福生技",
+      "market": "TWSE",
+      "score": 4,
+      "close": 33.5,
+      "change_pct": 5.015673981191227,
+      "volume": 4115184,
+      "reasons": [
+        "站上MA20(30.21)",
+        "MACD動能轉強",
+        "RSI健康(65.1)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "3663",
+      "name": "鑫科",
+      "market": "TPEx",
+      "score": 4,
+      "close": 68.5,
+      "change_pct": 2.8528528528528616,
+      "volume": 3636700,
+      "reasons": [
+        "站上MA20(62.79)",
+        "MACD動能轉強",
+        "RSI健康(67.0)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "9914",
+      "name": "美利達",
+      "market": "TWSE",
+      "score": 4,
+      "close": 68.6,
+      "change_pct": 2.848575712143937,
+      "volume": 3377397,
+      "reasons": [
+        "站上MA20(67.42)",
+        "MACD動能轉強",
+        "RSI健康(57.9)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2206",
+      "name": "三陽工業",
+      "market": "TWSE",
+      "score": 4,
+      "close": 65.3,
+      "change_pct": 1.7133956386292746,
+      "volume": 2414279,
+      "reasons": [
+        "站上MA20(63.45)",
+        "MACD動能轉強",
+        "RSI健康(62.7)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2458",
+      "name": "義隆",
+      "market": "TWSE",
+      "score": 4,
+      "close": 135.5,
+      "change_pct": 1.4981273408239701,
+      "volume": 2392200,
+      "reasons": [
+        "站上MA20(132.95)",
+        "MACD動能轉強",
+        "RSI健康(62.0)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "9921",
+      "name": "巨大",
+      "market": "TWSE",
+      "score": 4,
+      "close": 93.4,
+      "change_pct": 1.4115092290988025,
+      "volume": 2172857,
+      "reasons": [
+        "站上MA20(91.34)",
+        "MACD動能轉強",
+        "RSI健康(59.4)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "6416",
+      "name": "瑞祺電通",
+      "market": "TWSE",
+      "score": 4,
+      "close": 121.0,
+      "change_pct": 2.109704641350211,
+      "volume": 1701062,
+      "reasons": [
+        "站上MA20(118.72)",
+        "MACD動能轉強",
+        "RSI健康(58.5)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "3002",
+      "name": "歐格",
+      "market": "TWSE",
+      "score": 4,
+      "close": 19.35,
+      "change_pct": 2.110817941952499,
+      "volume": 1293648,
+      "reasons": [
+        "站上MA20(18.95)",
+        "MACD動能轉強",
+        "RSI健康(48.2)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "6782",
+      "name": "視陽",
+      "market": "TWSE",
+      "score": 4,
+      "close": 251.0,
+      "change_pct": 2.658486707566462,
+      "volume": 1190683,
+      "reasons": [
+        "站上MA20(238.38)",
+        "MACD動能轉強",
+        "RSI健康(59.9)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2727",
+      "name": "王品",
+      "market": "TWSE",
+      "score": 4,
+      "close": 246.0,
+      "change_pct": 1.6528925619834711,
+      "volume": 1121242,
+      "reasons": [
+        "站上MA20(233.72)",
+        "MACD動能轉強",
+        "RSI過熱(87.5)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "8464",
+      "name": "億豐",
+      "market": "TWSE",
+      "score": 4,
+      "close": 373.0,
+      "change_pct": 1.6348773841961852,
+      "volume": 878300,
+      "reasons": [
+        "站上MA20(369.95)",
+        "MACD動能轉強",
+        "RSI健康(47.6)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "2505",
+      "name": "國揚",
+      "market": "TWSE",
+      "score": 4,
+      "close": 18.05,
+      "change_pct": 1.977401129943511,
+      "volume": 822041,
+      "reasons": [
+        "站上MA20(17.18)",
+        "MACD動能轉強",
+        "RSI過熱(80.0)",
+        "上漲放量",
+        "多方K線:大紅K"
+      ],
+      "patterns": [
+        "大紅K"
+      ]
+    },
+    {
+      "symbol": "2015",
+      "name": "豐興",
+      "market": "TWSE",
+      "score": 4,
+      "close": 66.1,
+      "change_pct": 2.4806201550387508,
+      "volume": 720321,
+      "reasons": [
+        "站上MA20(64.45)",
+        "MACD動能轉強",
+        "RSI健康(63.4)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "6670",
+      "name": "復盛應用",
+      "market": "TWSE",
+      "score": 4,
+      "close": 274.0,
+      "change_pct": 1.4814814814814816,
+      "volume": 496732,
+      "reasons": [
+        "站上MA20(272.02)",
+        "MACD動能轉強",
+        "RSI健康(54.3)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "4109",
+      "name": "加捷生醫",
+      "market": "TPEx",
+      "score": 4,
+      "close": 11.2,
+      "change_pct": 1.818181818181812,
+      "volume": 428775,
+      "reasons": [
+        "站上MA20(11.05)",
+        "MACD動能轉強",
+        "RSI健康(55.6)",
+        "上漲放量"
+      ],
+      "patterns": []
+    },
+    {
+      "symbol": "1707",
+      "name": "葡萄王",
+      "market": "TWSE",
+      "score": 4,
+      "close": 87.7,
+      "change_pct": 1.6222479721900411,
+      "volume": 385615,
+      "reasons": [
+        "站上MA20(86.13)",
+        "MACD動能轉強",
+        "RSI健康(56.1)",
+        "上漲放量"
+      ],
+      "patterns": []
+    }
+  ],
+  "groups": {
+    "volume": [
+      {
+        "symbol": "0050",
+        "name": "元大台灣50",
+        "market": "TWSE",
+        "score": -1,
+        "close": 108.9,
+        "change_pct": -3.6283185840707914,
+        "volume": 453386198,
+        "reasons": [
+          "RSI健康(40.8)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2409",
+        "name": "友達",
+        "market": "TWSE",
+        "score": 1,
+        "close": 34.9,
+        "change_pct": -3.7241379310344866,
+        "volume": 338885440,
+        "reasons": [
+          "RSI健康(45.6)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "2303",
+        "name": "聯電",
+        "market": "TWSE",
+        "score": 0,
+        "close": 133.5,
+        "change_pct": -5.985915492957746,
+        "volume": 216052190,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "0056",
+        "name": "元大高股息",
+        "market": "TWSE",
+        "score": 2,
+        "close": 58.25,
+        "change_pct": -2.265100671140942,
+        "volume": 173873181,
+        "reasons": [
+          "站上MA20(57.30)",
+          "RSI健康(63.0)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1301",
+        "name": "台塑",
+        "market": "TWSE",
+        "score": -1,
+        "close": 81.7,
+        "change_pct": -8.098987626546684,
+        "volume": 152995405,
+        "reasons": [
+          "站上MA20(70.24)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6770",
+        "name": "力積電",
+        "market": "TWSE",
+        "score": -2,
+        "close": 66.2,
+        "change_pct": -6.7605633802816865,
+        "volume": 150194228,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3481",
+        "name": "群創",
+        "market": "TWSE",
+        "score": 1,
+        "close": 48.3,
+        "change_pct": -5.108055009823185,
+        "volume": 148207813,
+        "reasons": [
+          "RSI健康(44.1)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1303",
+        "name": "南亞",
+        "market": "TWSE",
+        "score": -1,
+        "close": 314.5,
+        "change_pct": -9.885386819484241,
+        "volume": 106835470,
+        "reasons": [
+          "站上MA20(268.05)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "8039",
+        "name": "台虹",
+        "market": "TWSE",
+        "score": 2,
+        "close": 283.5,
+        "change_pct": -6.435643564356436,
+        "volume": 103620977,
+        "reasons": [
+          "站上MA20(281.98)",
+          "RSI健康(56.1)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1312",
+        "name": "國喬",
+        "market": "TWSE",
+        "score": 0,
+        "close": 17.05,
+        "change_pct": -9.788359788359795,
+        "volume": 100046392,
+        "reasons": [
+          "站上MA20(15.26)",
+          "RSI健康(65.0)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "1326",
+        "name": "台化",
+        "market": "TWSE",
+        "score": 0,
+        "close": 77.0,
+        "change_pct": -9.941520467836257,
+        "volume": 86536806,
+        "reasons": [
+          "站上MA20(71.34)",
+          "RSI健康(64.8)",
+          "空方K線:大綠K、陰包陽"
+        ],
+        "patterns": [
+          "大綠K",
+          "陰包陽"
+        ]
+      },
+      {
+        "symbol": "1802",
+        "name": "台玻",
+        "market": "TWSE",
+        "score": 2,
+        "close": 62.7,
+        "change_pct": -6.41791044776119,
+        "volume": 81849389,
+        "reasons": [
+          "站上MA20(60.31)",
+          "RSI健康(57.2)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2344",
+        "name": "華邦電",
+        "market": "TWSE",
+        "score": 0,
+        "close": 155.0,
+        "change_pct": -6.0606060606060606,
+        "volume": 79591981,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "2408",
+        "name": "南亞科",
+        "market": "TWSE",
+        "score": 0,
+        "close": 439.5,
+        "change_pct": -8.532778355879293,
+        "volume": 78464587,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "2891",
+        "name": "中信金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 72.9,
+        "change_pct": 2.1008403361344534,
+        "volume": 77882506,
+        "reasons": [
+          "站上MA20(69.42)",
+          "MACD動能轉強",
+          "RSI健康(64.3)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3231",
+        "name": "緯創",
+        "market": "TWSE",
+        "score": -1,
+        "close": 176.0,
+        "change_pct": -5.88235294117647,
+        "volume": 75464280,
+        "reasons": [
+          "RSI健康(44.7)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2887",
+        "name": "台新新光金",
+        "market": "TWSE",
+        "score": 1,
+        "close": 41.6,
+        "change_pct": -2.4618991793669336,
+        "volume": 73224975,
+        "reasons": [
+          "RSI健康(42.7)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1605",
+        "name": "華新",
+        "market": "TWSE",
+        "score": -1,
+        "close": 37.7,
+        "change_pct": -7.371007371007371,
+        "volume": 66907044,
+        "reasons": [
+          "RSI健康(52.6)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2890",
+        "name": "永豐金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 45.6,
+        "change_pct": 3.518728717366622,
+        "volume": 63323507,
+        "reasons": [
+          "站上MA20(44.80)",
+          "MACD動能轉強",
+          "RSI健康(51.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2884",
+        "name": "玉山金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 48.8,
+        "change_pct": 3.1712473572938693,
+        "volume": 63086494,
+        "reasons": [
+          "站上MA20(45.96)",
+          "MACD動能轉強",
+          "RSI健康(67.7)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1815",
+        "name": "富喬",
+        "market": "TPEx",
+        "score": 2,
+        "close": 127.5,
+        "change_pct": -4.850746268656716,
+        "volume": 59881890,
+        "reasons": [
+          "站上MA20(123.00)",
+          "RSI健康(56.3)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "6505",
+        "name": "台塑化",
+        "market": "TWSE",
+        "score": -1,
+        "close": 111.5,
+        "change_pct": -6.694560669456067,
+        "volume": 58739965,
+        "reasons": [
+          "站上MA20(97.41)",
+          "空方K線:黃昏星"
+        ],
+        "patterns": [
+          "黃昏星"
+        ]
+      },
+      {
+        "symbol": "2330",
+        "name": "台積電",
+        "market": "TWSE",
+        "score": 2,
+        "close": 2440.0,
+        "change_pct": -2.0080321285140563,
+        "volume": 58486711,
+        "reasons": [
+          "RSI健康(47.1)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "0052",
+        "name": "富邦科技",
+        "market": "TWSE",
+        "score": 1,
+        "close": 63.15,
+        "change_pct": -3.8812785388127913,
+        "volume": 58471847,
+        "reasons": [
+          "RSI健康(41.8)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6278",
+        "name": "台表科",
+        "market": "TWSE",
+        "score": 2,
+        "close": 303.0,
+        "change_pct": 4.482758620689655,
+        "volume": 57252548,
+        "reasons": [
+          "站上MA20(226.10)",
+          "MACD動能轉強",
+          "RSI過熱(86.2)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1314",
+        "name": "中石化",
+        "market": "TWSE",
+        "score": -1,
+        "close": 8.85,
+        "change_pct": -5.042918454935629,
+        "volume": 56012850,
+        "reasons": [
+          "RSI健康(52.3)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2327",
+        "name": "國巨*",
+        "market": "TWSE",
+        "score": 1,
+        "close": 573.0,
+        "change_pct": -8.61244019138756,
+        "volume": 55932333,
+        "reasons": [
+          "RSI健康(50.4)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1718",
+        "name": "中纖",
+        "market": "TWSE",
+        "score": 0,
+        "close": 11.8,
+        "change_pct": -8.527131782945734,
+        "volume": 53100151,
+        "reasons": [
+          "站上MA20(11.13)",
+          "RSI健康(62.5)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "4939",
+        "name": "亞電",
+        "market": "TPEx",
+        "score": 2,
+        "close": 75.8,
+        "change_pct": -3.439490445859876,
+        "volume": 51966516,
+        "reasons": [
+          "MACD動能轉強",
+          "RSI健康(48.8)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2317",
+        "name": "鴻海",
+        "market": "TWSE",
+        "score": 2,
+        "close": 239.5,
+        "change_pct": -1.440329218106996,
+        "volume": 49562688,
+        "reasons": [
+          "多方K線:錘子線"
+        ],
+        "patterns": [
+          "錘子線"
+        ]
+      },
+      {
+        "symbol": "2883",
+        "name": "凱基金",
+        "market": "TWSE",
+        "score": 2,
+        "close": 38.4,
+        "change_pct": -0.646830530401035,
+        "volume": 47036241,
+        "reasons": [
+          "MACD動能轉強",
+          "RSI健康(43.4)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2886",
+        "name": "兆豐金",
+        "market": "TWSE",
+        "score": 6,
+        "close": 52.5,
+        "change_pct": 2.7397260273972575,
+        "volume": 46916842,
+        "reasons": [
+          "站上MA20(50.21)",
+          "MACD動能轉強",
+          "RSI健康(64.3)",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2002",
+        "name": "中鋼",
+        "market": "TWSE",
+        "score": 0,
+        "close": 19.25,
+        "change_pct": -1.282051282051282,
+        "volume": 46591364,
+        "reasons": [
+          "站上MA20(18.91)",
+          "RSI健康(65.8)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2337",
+        "name": "旺宏",
+        "market": "TWSE",
+        "score": 0,
+        "close": 104.5,
+        "change_pct": -5.0,
+        "volume": 46397482,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "2449",
+        "name": "京元電子",
+        "market": "TWSE",
+        "score": 0,
+        "close": 272.0,
+        "change_pct": -8.263069139966273,
+        "volume": 45993625,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "2885",
+        "name": "元大金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 72.7,
+        "change_pct": 0.6925207756232686,
+        "volume": 43392893,
+        "reasons": [
+          "站上MA20(69.47)",
+          "MACD動能轉強",
+          "RSI健康(58.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2478",
+        "name": "大毅",
+        "market": "TWSE",
+        "score": 3,
+        "close": 142.0,
+        "change_pct": 3.272727272727273,
+        "volume": 42971102,
+        "reasons": [
+          "站上MA20(125.10)",
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1101",
+        "name": "台泥",
+        "market": "TWSE",
+        "score": 2,
+        "close": 26.8,
+        "change_pct": -0.9242144177449167,
+        "volume": 42215985,
+        "reasons": [
+          "站上MA20(25.37)",
+          "RSI健康(65.1)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6217",
+        "name": "中探針",
+        "market": "TPEx",
+        "score": 2,
+        "close": 195.0,
+        "change_pct": -9.930715935334874,
+        "volume": 42206445,
+        "reasons": [
+          "站上MA20(176.43)",
+          "RSI健康(62.6)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6209",
+        "name": "今國光",
+        "market": "TWSE",
+        "score": 4,
+        "close": 93.0,
+        "change_pct": 3.563474387527843,
+        "volume": 41803895,
+        "reasons": [
+          "站上MA20(83.85)",
+          "MACD動能轉強",
+          "RSI過熱(84.1)",
+          "上漲放量",
+          "多方K線:陽包陰"
+        ],
+        "patterns": [
+          "陽包陰"
+        ]
+      },
+      {
+        "symbol": "1714",
+        "name": "和桐",
+        "market": "TWSE",
+        "score": 0,
+        "close": 18.9,
+        "change_pct": -7.579462102689491,
+        "volume": 41424830,
+        "reasons": [
+          "站上MA20(17.40)",
+          "RSI健康(67.9)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "5880",
+        "name": "合庫金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 27.5,
+        "change_pct": 1.2891344383057144,
+        "volume": 39659352,
+        "reasons": [
+          "站上MA20(26.72)",
+          "MACD動能轉強",
+          "RSI健康(56.5)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2355",
+        "name": "敬鵬",
+        "market": "TWSE",
+        "score": 2,
+        "close": 53.6,
+        "change_pct": 3.2755298651252462,
+        "volume": 39439958,
+        "reasons": [
+          "站上MA20(44.07)",
+          "MACD動能轉強",
+          "RSI過熱(90.3)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3711",
+        "name": "日月光投控",
+        "market": "TWSE",
+        "score": -1,
+        "close": 673.0,
+        "change_pct": -9.906291834002676,
+        "volume": 39164509,
+        "reasons": [
+          "RSI健康(45.5)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "1216",
+        "name": "統一",
+        "market": "TWSE",
+        "score": 3,
+        "close": 79.5,
+        "change_pct": 1.6624040920716077,
+        "volume": 38693256,
+        "reasons": [
+          "站上MA20(75.08)",
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6147",
+        "name": "頎邦",
+        "market": "TPEx",
+        "score": 1,
+        "close": 214.5,
+        "change_pct": -7.543103448275862,
+        "volume": 38332387,
+        "reasons": [
+          "RSI健康(47.7)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3090",
+        "name": "日電貿",
+        "market": "TWSE",
+        "score": 2,
+        "close": 171.5,
+        "change_pct": -6.539509536784741,
+        "volume": 37246926,
+        "reasons": [
+          "站上MA20(167.93)",
+          "RSI健康(56.5)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2892",
+        "name": "第一金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 41.6,
+        "change_pct": 2.3370233702337098,
+        "volume": 37121953,
+        "reasons": [
+          "站上MA20(39.51)",
+          "MACD動能轉強",
+          "RSI健康(63.9)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2340",
+        "name": "台亞",
+        "market": "TWSE",
+        "score": 2,
+        "close": 47.2,
+        "change_pct": -9.923664122137408,
+        "volume": 35319508,
+        "reasons": [
+          "站上MA20(42.02)",
+          "RSI健康(68.7)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "6116",
+        "name": "彩晶",
+        "market": "TWSE",
+        "score": 1,
+        "close": 14.6,
+        "change_pct": -4.88599348534202,
+        "volume": 35251620,
+        "reasons": [
+          "RSI健康(43.1)"
+        ],
+        "patterns": []
+      }
+    ],
+    "gainers": [
+      {
+        "symbol": "3354",
+        "name": "律勝",
+        "market": "TPEx",
+        "score": 2,
+        "close": 38.0,
+        "change_pct": 9.985528219971066,
+        "volume": 3969418,
+        "reasons": [
+          "站上MA20(30.85)",
+          "MACD動能轉強"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "3485",
+        "name": "敘豐",
+        "market": "TPEx",
+        "score": 5,
+        "close": 248.0,
+        "change_pct": 9.977827050997783,
+        "volume": 757656,
+        "reasons": [
+          "站上MA20(208.88)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2380",
+        "name": "虹光",
+        "market": "TWSE",
+        "score": 6,
+        "close": 17.15,
+        "change_pct": 9.935897435897441,
+        "volume": 273588,
+        "reasons": [
+          "站上MA20(16.51)",
+          "MACD動能轉強",
+          "RSI健康(57.8)",
+          "上漲放量",
+          "多方K線:大紅K、晨星"
+        ],
+        "patterns": [
+          "大紅K",
+          "晨星"
+        ]
+      },
+      {
+        "symbol": "2033",
+        "name": "佳大",
+        "market": "TWSE",
+        "score": 5,
+        "close": 54.4,
+        "change_pct": 9.898989898989896,
+        "volume": 3249946,
+        "reasons": [
+          "站上MA20(42.49)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "6925",
+        "name": "意藍",
+        "market": "TPEx",
+        "score": 5,
+        "close": 82.3,
+        "change_pct": 9.87983978638185,
+        "volume": 1674384,
+        "reasons": [
+          "站上MA20(68.33)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "6269",
+        "name": "台郡",
+        "market": "TWSE",
+        "score": 2,
+        "close": 74.6,
+        "change_pct": 9.867452135493378,
+        "volume": 29992772,
+        "reasons": [
+          "站上MA20(65.17)",
+          "MACD動能轉強"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "4924",
+        "name": "欣厚-KY",
+        "market": "TPEx",
+        "score": 6,
+        "close": 20.15,
+        "change_pct": 9.809264305177116,
+        "volume": 1159250,
+        "reasons": [
+          "站上MA20(16.21)",
+          "MACD動能轉強",
+          "RSI健康(55.0)",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "8437",
+        "name": "大地-KY",
+        "market": "TPEx",
+        "score": 3,
+        "close": 13.55,
+        "change_pct": 9.716599190283395,
+        "volume": 834669,
+        "reasons": [
+          "站上MA20(10.40)",
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2424",
+        "name": "隴華",
+        "market": "TWSE",
+        "score": 1,
+        "close": 14.2,
+        "change_pct": 9.652509652509652,
+        "volume": 835052,
+        "reasons": [
+          "站上MA20(9.20)",
+          "MACD動能轉強",
+          "RSI過熱(94.5)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "2429",
+        "name": "銘旺科",
+        "market": "TWSE",
+        "score": 5,
+        "close": 38.2,
+        "change_pct": 9.298998569384835,
+        "volume": 2756838,
+        "reasons": [
+          "站上MA20(31.47)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "4426",
+        "name": "利勤",
+        "market": "TWSE",
+        "score": 5,
+        "close": 8.62,
+        "change_pct": 8.02005012531328,
+        "volume": 1183222,
+        "reasons": [
+          "站上MA20(7.69)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "6240",
+        "name": "松崗",
+        "market": "TPEx",
+        "score": 4,
+        "close": 30.1,
+        "change_pct": 7.692307692307685,
+        "volume": 132060,
+        "reasons": [
+          "站上MA20(25.90)",
+          "MACD動能轉強",
+          "RSI過熱(84.3)",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "6236",
+        "name": "中湛",
+        "market": "TPEx",
+        "score": 3,
+        "close": 16.25,
+        "change_pct": 6.557377049180328,
+        "volume": 2000,
+        "reasons": [
+          "RSI健康(46.2)",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2924",
+        "name": "宏太-KY",
+        "market": "TPEx",
+        "score": 6,
+        "close": 18.5,
+        "change_pct": 6.017191977077369,
+        "volume": 20217,
+        "reasons": [
+          "站上MA20(18.24)",
+          "MACD動能轉強",
+          "RSI健康(45.0)",
+          "上漲放量",
+          "多方K線:錘子線"
+        ],
+        "patterns": [
+          "錘子線"
+        ]
+      },
+      {
+        "symbol": "4568",
+        "name": "科際精密",
+        "market": "TPEx",
+        "score": 4,
+        "close": 41.9,
+        "change_pct": 5.276381909547743,
+        "volume": 131619,
+        "reasons": [
+          "站上MA20(39.59)",
+          "MACD動能轉強",
+          "RSI健康(68.3)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6655",
+        "name": "科定",
+        "market": "TWSE",
+        "score": 3,
+        "close": 133.5,
+        "change_pct": 5.118110236220472,
+        "volume": 47617,
+        "reasons": [
+          "站上MA20(125.65)",
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6885",
+        "name": "全福生技",
+        "market": "TWSE",
+        "score": 4,
+        "close": 33.5,
+        "change_pct": 5.015673981191227,
+        "volume": 4115184,
+        "reasons": [
+          "站上MA20(30.21)",
+          "MACD動能轉強",
+          "RSI健康(65.1)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "4609",
+        "name": "唐鋒",
+        "market": "TPEx",
+        "score": 3,
+        "close": 4.93,
+        "change_pct": 4.893617021276605,
+        "volume": 3121,
+        "reasons": [
+          "站上MA20(4.39)",
+          "MACD動能轉強",
+          "RSI健康(63.0)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3406",
+        "name": "玉晶光",
+        "market": "TWSE",
+        "score": 3,
+        "close": 1115.0,
+        "change_pct": 4.694835680751173,
+        "volume": 12889270,
+        "reasons": [
+          "站上MA20(994.55)",
+          "RSI健康(67.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "4904",
+        "name": "遠傳",
+        "market": "TWSE",
+        "score": 5,
+        "close": 113.0,
+        "change_pct": 4.62962962962963,
+        "volume": 15938061,
+        "reasons": [
+          "站上MA20(106.12)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "3593",
+        "name": "力銘",
+        "market": "TWSE",
+        "score": 3,
+        "close": 10.45,
+        "change_pct": 4.499999999999993,
+        "volume": 9149,
+        "reasons": [
+          "站上MA20(10.26)",
+          "RSI健康(62.6)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6278",
+        "name": "台表科",
+        "market": "TWSE",
+        "score": 2,
+        "close": 303.0,
+        "change_pct": 4.482758620689655,
+        "volume": 57252548,
+        "reasons": [
+          "站上MA20(226.10)",
+          "MACD動能轉強",
+          "RSI過熱(86.2)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6617",
+        "name": "共信-KY",
+        "market": "TPEx",
+        "score": 2,
+        "close": 120.5,
+        "change_pct": 3.8793103448275863,
+        "volume": 1117741,
+        "reasons": [
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6209",
+        "name": "今國光",
+        "market": "TWSE",
+        "score": 4,
+        "close": 93.0,
+        "change_pct": 3.563474387527843,
+        "volume": 41803895,
+        "reasons": [
+          "站上MA20(83.85)",
+          "MACD動能轉強",
+          "RSI過熱(84.1)",
+          "上漲放量",
+          "多方K線:陽包陰"
+        ],
+        "patterns": [
+          "陽包陰"
+        ]
+      },
+      {
+        "symbol": "3045",
+        "name": "台灣大",
+        "market": "TWSE",
+        "score": 4,
+        "close": 131.0,
+        "change_pct": 3.557312252964427,
+        "volume": 16412294,
+        "reasons": [
+          "站上MA20(123.50)",
+          "MACD動能轉強",
+          "RSI健康(69.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2890",
+        "name": "永豐金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 45.6,
+        "change_pct": 3.518728717366622,
+        "volume": 63323507,
+        "reasons": [
+          "站上MA20(44.80)",
+          "MACD動能轉強",
+          "RSI健康(51.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "7835",
+        "name": "永悅健康-創",
+        "market": "TWSE",
+        "score": 2,
+        "close": 21.5,
+        "change_pct": 3.365384615384612,
+        "volume": 61368,
+        "reasons": [
+          "站上MA20(20.29)",
+          "MACD動能轉強"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "5876",
+        "name": "上海商銀",
+        "market": "TWSE",
+        "score": 5,
+        "close": 53.4,
+        "change_pct": 3.288201160541592,
+        "volume": 13297970,
+        "reasons": [
+          "站上MA20(49.77)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2355",
+        "name": "敬鵬",
+        "market": "TWSE",
+        "score": 2,
+        "close": 53.6,
+        "change_pct": 3.2755298651252462,
+        "volume": 39439958,
+        "reasons": [
+          "站上MA20(44.07)",
+          "MACD動能轉強",
+          "RSI過熱(90.3)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2478",
+        "name": "大毅",
+        "market": "TWSE",
+        "score": 3,
+        "close": 142.0,
+        "change_pct": 3.272727272727273,
+        "volume": 42971102,
+        "reasons": [
+          "站上MA20(125.10)",
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1476",
+        "name": "儒鴻",
+        "market": "TWSE",
+        "score": 3,
+        "close": 324.0,
+        "change_pct": 3.1847133757961785,
+        "volume": 2693249,
+        "reasons": [
+          "站上MA20(289.10)",
+          "MACD動能轉強",
+          "RSI過熱(87.3)",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2884",
+        "name": "玉山金",
+        "market": "TWSE",
+        "score": 4,
+        "close": 48.8,
+        "change_pct": 3.1712473572938693,
+        "volume": 63086494,
+        "reasons": [
+          "站上MA20(45.96)",
+          "MACD動能轉強",
+          "RSI健康(67.7)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2850",
+        "name": "新產",
+        "market": "TWSE",
+        "score": 5,
+        "close": 173.0,
+        "change_pct": 2.976190476190476,
+        "volume": 683479,
+        "reasons": [
+          "站上MA20(161.30)",
+          "MACD動能轉強",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "1907",
+        "name": "永豐餘",
+        "market": "TWSE",
+        "score": 3,
+        "close": 29.55,
+        "change_pct": 2.961672473867601,
+        "volume": 2696828,
+        "reasons": [
+          "站上MA20(28.51)",
+          "MACD動能轉強",
+          "RSI健康(55.7)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6199",
+        "name": "天品",
+        "market": "TPEx",
+        "score": 1,
+        "close": 142.0,
+        "change_pct": 2.898550724637681,
+        "volume": 7643892,
+        "reasons": [
+          "站上MA20(126.85)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "8099",
+        "name": "大世科",
+        "market": "TPEx",
+        "score": 3,
+        "close": 64.8,
+        "change_pct": 2.8571428571428523,
+        "volume": 470568,
+        "reasons": [
+          "站上MA20(60.23)",
+          "MACD動能轉強",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3663",
+        "name": "鑫科",
+        "market": "TPEx",
+        "score": 4,
+        "close": 68.5,
+        "change_pct": 2.8528528528528616,
+        "volume": 3636700,
+        "reasons": [
+          "站上MA20(62.79)",
+          "MACD動能轉強",
+          "RSI健康(67.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "9914",
+        "name": "美利達",
+        "market": "TWSE",
+        "score": 4,
+        "close": 68.6,
+        "change_pct": 2.848575712143937,
+        "volume": 3377397,
+        "reasons": [
+          "站上MA20(67.42)",
+          "MACD動能轉強",
+          "RSI健康(57.9)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "4530",
+        "name": "天意能創",
+        "market": "TPEx",
+        "score": 3,
+        "close": 25.6,
+        "change_pct": 2.8112449799196755,
+        "volume": 1083,
+        "reasons": [
+          "站上MA20(24.77)",
+          "MACD動能轉強",
+          "RSI健康(67.3)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "6756",
+        "name": "威鋒電子",
+        "market": "TWSE",
+        "score": 6,
+        "close": 100.0,
+        "change_pct": 2.774922918807814,
+        "volume": 318021,
+        "reasons": [
+          "站上MA20(97.33)",
+          "MACD動能轉強",
+          "RSI健康(58.7)",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2886",
+        "name": "兆豐金",
+        "market": "TWSE",
+        "score": 6,
+        "close": 52.5,
+        "change_pct": 2.7397260273972575,
+        "volume": 46916842,
+        "reasons": [
+          "站上MA20(50.21)",
+          "MACD動能轉強",
+          "RSI健康(64.3)",
+          "上漲放量",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "2412",
+        "name": "中華電",
+        "market": "TWSE",
+        "score": 2,
+        "close": 152.5,
+        "change_pct": 2.6936026936026933,
+        "volume": 24575585,
+        "reasons": [
+          "站上MA20(145.75)",
+          "MACD動能轉強",
+          "RSI過熱(80.0)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6782",
+        "name": "視陽",
+        "market": "TWSE",
+        "score": 4,
+        "close": 251.0,
+        "change_pct": 2.658486707566462,
+        "volume": 1190683,
+        "reasons": [
+          "站上MA20(238.38)",
+          "MACD動能轉強",
+          "RSI健康(59.9)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6148",
+        "name": "驊宏資",
+        "market": "TPEx",
+        "score": 4,
+        "close": 38.15,
+        "change_pct": 2.553763440860223,
+        "volume": 5994344,
+        "reasons": [
+          "站上MA20(37.95)",
+          "MACD動能轉強",
+          "RSI健康(47.7)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "4557",
+        "name": "永新-KY",
+        "market": "TWSE",
+        "score": 2,
+        "close": 52.9,
+        "change_pct": 2.5193798449612346,
+        "volume": 101247,
+        "reasons": [
+          "站上MA20(50.35)",
+          "MACD動能轉強",
+          "RSI過熱(94.4)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2851",
+        "name": "中再保",
+        "market": "TWSE",
+        "score": 4,
+        "close": 53.2,
+        "change_pct": 2.504816955684002,
+        "volume": 4646813,
+        "reasons": [
+          "站上MA20(47.71)",
+          "MACD動能轉強",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "5601",
+        "name": "台聯櫃",
+        "market": "TPEx",
+        "score": 5,
+        "close": 32.9,
+        "change_pct": 2.4922118380062215,
+        "volume": 6472,
+        "reasons": [
+          "站上MA20(30.32)",
+          "MACD動能轉強",
+          "RSI健康(59.2)",
+          "多方K線:大紅K"
+        ],
+        "patterns": [
+          "大紅K"
+        ]
+      },
+      {
+        "symbol": "8342",
+        "name": "益張",
+        "market": "TPEx",
+        "score": 3,
+        "close": 86.6,
+        "change_pct": 2.485207100591709,
+        "volume": 10000,
+        "reasons": [
+          "站上MA20(84.11)",
+          "MACD動能轉強",
+          "RSI健康(64.4)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "2015",
+        "name": "豐興",
+        "market": "TWSE",
+        "score": 4,
+        "close": 66.1,
+        "change_pct": 2.4806201550387508,
+        "volume": 720321,
+        "reasons": [
+          "站上MA20(64.45)",
+          "MACD動能轉強",
+          "RSI健康(63.4)",
+          "上漲放量"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "4706",
+        "name": "大恭",
+        "market": "TPEx",
+        "score": 4,
+        "close": 39.25,
+        "change_pct": 2.4804177545691983,
+        "volume": 61373,
+        "reasons": [
+          "站上MA20(36.38)",
+          "RSI健康(63.9)",
+          "多方K線:陽包陰"
+        ],
+        "patterns": [
+          "陽包陰"
+        ]
+      }
+    ],
+    "losers": [
+      {
+        "symbol": "3259",
+        "name": "鑫創",
+        "market": "TPEx",
+        "score": -1,
+        "close": 10.35,
+        "change_pct": -10.000000000000004,
+        "volume": 48628,
+        "reasons": [
+          "RSI健康(51.0)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "1710",
+        "name": "東聯",
+        "market": "TWSE",
+        "score": 0,
+        "close": 18.0,
+        "change_pct": -10.0,
+        "volume": 15893362,
+        "reasons": [
+          "站上MA20(17.24)",
+          "RSI健康(59.7)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2360",
+        "name": "致茂",
+        "market": "TWSE",
+        "score": 0,
+        "close": 2025.0,
+        "change_pct": -10.0,
+        "volume": 4128816,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "7734",
+        "name": "印能科技",
+        "market": "TPEx",
+        "score": -1,
+        "close": 2430.0,
+        "change_pct": -10.0,
+        "volume": 436605,
+        "reasons": [
+          "RSI健康(44.8)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3518",
+        "name": "柏騰",
+        "market": "TWSE",
+        "score": 0,
+        "close": 41.45,
+        "change_pct": -9.98914223669924,
+        "volume": 5526045,
+        "reasons": [
+          "站上MA20(39.75)",
+          "RSI健康(65.3)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6831",
+        "name": "邁科",
+        "market": "TWSE",
+        "score": -2,
+        "close": 428.5,
+        "change_pct": -9.978991596638656,
+        "volume": 1308277,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6515",
+        "name": "穎崴",
+        "market": "TWSE",
+        "score": -1,
+        "close": 5055.0,
+        "change_pct": -9.973285841495994,
+        "volume": 880704,
+        "reasons": [
+          "RSI健康(40.0)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "1597",
+        "name": "直得",
+        "market": "TWSE",
+        "score": 0,
+        "close": 144.5,
+        "change_pct": -9.968847352024921,
+        "volume": 5944135,
+        "reasons": [
+          "站上MA20(143.03)",
+          "RSI健康(56.6)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6531",
+        "name": "愛普*",
+        "market": "TWSE",
+        "score": -2,
+        "close": 831.0,
+        "change_pct": -9.967497291440953,
+        "volume": 7437556,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2221",
+        "name": "大甲",
+        "market": "TPEx",
+        "score": 1,
+        "close": 126.5,
+        "change_pct": -9.9644128113879,
+        "volume": 276164,
+        "reasons": [
+          "RSI健康(40.5)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "7856",
+        "name": "漢測",
+        "market": "TPEx",
+        "score": -2,
+        "close": 3300.0,
+        "change_pct": -9.959072305593452,
+        "volume": 570858,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3094",
+        "name": "聯傑",
+        "market": "TWSE",
+        "score": 1,
+        "close": 58.8,
+        "change_pct": -9.95405819295559,
+        "volume": 6604550,
+        "reasons": [
+          "RSI健康(59.3)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "5205",
+        "name": "中茂",
+        "market": "TPEx",
+        "score": -1,
+        "close": 31.25,
+        "change_pct": -9.942363112391938,
+        "volume": 4572,
+        "reasons": [
+          "站上MA20(24.41)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "1326",
+        "name": "台化",
+        "market": "TWSE",
+        "score": 0,
+        "close": 77.0,
+        "change_pct": -9.941520467836257,
+        "volume": 86536806,
+        "reasons": [
+          "站上MA20(71.34)",
+          "RSI健康(64.8)",
+          "空方K線:大綠K、陰包陽"
+        ],
+        "patterns": [
+          "大綠K",
+          "陰包陽"
+        ]
+      },
+      {
+        "symbol": "6223",
+        "name": "旺矽",
+        "market": "TPEx",
+        "score": -1,
+        "close": 5300.0,
+        "change_pct": -9.940526762956669,
+        "volume": 1187294,
+        "reasons": [
+          "RSI健康(49.3)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3230",
+        "name": "錦明",
+        "market": "TPEx",
+        "score": 0,
+        "close": 26.3,
+        "change_pct": -9.931506849315063,
+        "volume": 610683,
+        "reasons": [],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "6217",
+        "name": "中探針",
+        "market": "TPEx",
+        "score": 2,
+        "close": 195.0,
+        "change_pct": -9.930715935334874,
+        "volume": 42206445,
+        "reasons": [
+          "站上MA20(176.43)",
+          "RSI健康(62.6)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6669",
+        "name": "緯穎",
+        "market": "TWSE",
+        "score": 0,
+        "close": 1905.0,
+        "change_pct": -9.929078014184398,
+        "volume": 10223045,
+        "reasons": [],
+        "patterns": []
+      },
+      {
+        "symbol": "3597",
+        "name": "映興",
+        "market": "TPEx",
+        "score": 0,
+        "close": 48.1,
+        "change_pct": -9.925093632958797,
+        "volume": 1509755,
+        "reasons": [
+          "站上MA20(33.08)",
+          "RSI過熱(81.2)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2340",
+        "name": "台亞",
+        "market": "TWSE",
+        "score": 2,
+        "close": 47.2,
+        "change_pct": -9.923664122137408,
+        "volume": 35319508,
+        "reasons": [
+          "站上MA20(42.02)",
+          "RSI健康(68.7)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "6510",
+        "name": "精測",
+        "market": "TPEx",
+        "score": -2,
+        "close": 2905.0,
+        "change_pct": -9.922480620155039,
+        "volume": 796196,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6708",
+        "name": "天擎",
+        "market": "TPEx",
+        "score": 0,
+        "close": 58.2,
+        "change_pct": -9.907120743034064,
+        "volume": 170147,
+        "reasons": [
+          "站上MA20(53.43)",
+          "RSI健康(68.3)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3711",
+        "name": "日月光投控",
+        "market": "TWSE",
+        "score": -1,
+        "close": 673.0,
+        "change_pct": -9.906291834002676,
+        "volume": 39164509,
+        "reasons": [
+          "RSI健康(45.5)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "5230",
+        "name": "雷笛克光學",
+        "market": "TPEx",
+        "score": 0,
+        "close": 27.3,
+        "change_pct": -9.900990099009901,
+        "volume": 6777573,
+        "reasons": [
+          "站上MA20(22.87)",
+          "RSI健康(67.2)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6226",
+        "name": "光鼎",
+        "market": "TWSE",
+        "score": 1,
+        "close": 40.1,
+        "change_pct": -9.8876404494382,
+        "volume": 9372558,
+        "reasons": [
+          "RSI健康(40.6)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1303",
+        "name": "南亞",
+        "market": "TWSE",
+        "score": -1,
+        "close": 314.5,
+        "change_pct": -9.885386819484241,
+        "volume": 106835470,
+        "reasons": [
+          "站上MA20(268.05)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3105",
+        "name": "穩懋",
+        "market": "TPEx",
+        "score": -1,
+        "close": 502.0,
+        "change_pct": -9.874326750448834,
+        "volume": 16741547,
+        "reasons": [
+          "RSI健康(50.2)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "8467",
+        "name": "波力-KY",
+        "market": "TWSE",
+        "score": 0,
+        "close": 100.5,
+        "change_pct": -9.865470852017937,
+        "volume": 164275,
+        "reasons": [
+          "站上MA20(91.06)",
+          "RSI健康(64.3)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6834",
+        "name": "天二科技",
+        "market": "TWSE",
+        "score": 0,
+        "close": 146.5,
+        "change_pct": -9.846153846153847,
+        "volume": 12908015,
+        "reasons": [
+          "站上MA20(122.80)",
+          "RSI健康(68.0)",
+          "空方K線:大綠K、黃昏星"
+        ],
+        "patterns": [
+          "大綠K",
+          "黃昏星"
+        ]
+      },
+      {
+        "symbol": "3665",
+        "name": "貿聯-KY",
+        "market": "TWSE",
+        "score": -2,
+        "close": 2015.0,
+        "change_pct": -9.843400447427292,
+        "volume": 3269297,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "2466",
+        "name": "冠西電",
+        "market": "TWSE",
+        "score": 1,
+        "close": 192.5,
+        "change_pct": -9.836065573770492,
+        "volume": 327614,
+        "reasons": [
+          "站上MA20(147.30)"
+        ],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "8150",
+        "name": "南茂",
+        "market": "TWSE",
+        "score": -1,
+        "close": 105.5,
+        "change_pct": -9.82905982905983,
+        "volume": 30022896,
+        "reasons": [
+          "RSI健康(50.0)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3055",
+        "name": "蔚華科",
+        "market": "TWSE",
+        "score": 0,
+        "close": 147.0,
+        "change_pct": -9.815950920245399,
+        "volume": 915768,
+        "reasons": [],
+        "patterns": [
+          "十字星"
+        ]
+      },
+      {
+        "symbol": "8996",
+        "name": "高力",
+        "market": "TWSE",
+        "score": 1,
+        "close": 1520.0,
+        "change_pct": -9.792284866468842,
+        "volume": 4668652,
+        "reasons": [
+          "RSI健康(40.4)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "1312",
+        "name": "國喬",
+        "market": "TWSE",
+        "score": 0,
+        "close": 17.05,
+        "change_pct": -9.788359788359795,
+        "volume": 100046392,
+        "reasons": [
+          "站上MA20(15.26)",
+          "RSI健康(65.0)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6187",
+        "name": "萬潤",
+        "market": "TPEx",
+        "score": 2,
+        "close": 1390.0,
+        "change_pct": -9.740259740259742,
+        "volume": 3414119,
+        "reasons": [
+          "站上MA20(1364.25)",
+          "RSI健康(60.0)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "6449",
+        "name": "鈺邦",
+        "market": "TWSE",
+        "score": 0,
+        "close": 243.0,
+        "change_pct": -9.66542750929368,
+        "volume": 3325135,
+        "reasons": [
+          "站上MA20(230.72)",
+          "RSI健康(63.7)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "7769",
+        "name": "鴻勁",
+        "market": "TWSE",
+        "score": -2,
+        "close": 5225.0,
+        "change_pct": -9.602076124567475,
+        "volume": 1307361,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "8227",
+        "name": "巨有科技",
+        "market": "TPEx",
+        "score": 1,
+        "close": 282.5,
+        "change_pct": -9.6,
+        "volume": 3459087,
+        "reasons": [
+          "RSI健康(45.0)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3131",
+        "name": "弘塑",
+        "market": "TPEx",
+        "score": -2,
+        "close": 2140.0,
+        "change_pct": -9.513742071881607,
+        "volume": 573097,
+        "reasons": [
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6488",
+        "name": "環球晶",
+        "market": "TPEx",
+        "score": 1,
+        "close": 923.0,
+        "change_pct": -9.509803921568627,
+        "volume": 18849886,
+        "reasons": [
+          "RSI健康(46.1)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3311",
+        "name": "閎暉",
+        "market": "TWSE",
+        "score": -1,
+        "close": 50.7,
+        "change_pct": -9.46428571428571,
+        "volume": 5451067,
+        "reasons": [
+          "站上MA20(44.05)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "4991",
+        "name": "環宇-KY",
+        "market": "TPEx",
+        "score": 1,
+        "close": 441.5,
+        "change_pct": -9.435897435897436,
+        "volume": 3284208,
+        "reasons": [
+          "RSI健康(44.0)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "8289",
+        "name": "泰藝",
+        "market": "TPEx",
+        "score": 0,
+        "close": 53.0,
+        "change_pct": -9.401709401709402,
+        "volume": 2118397,
+        "reasons": [
+          "站上MA20(50.29)",
+          "RSI健康(63.1)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "6239",
+        "name": "力成",
+        "market": "TWSE",
+        "score": -1,
+        "close": 270.5,
+        "change_pct": -9.380234505862646,
+        "volume": 25548862,
+        "reasons": [
+          "RSI健康(40.1)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "5228",
+        "name": "鈺鎧",
+        "market": "TPEx",
+        "score": 1,
+        "close": 56.1,
+        "change_pct": -9.369951534733437,
+        "volume": 868587,
+        "reasons": [
+          "站上MA20(47.25)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "3374",
+        "name": "精材",
+        "market": "TPEx",
+        "score": -1,
+        "close": 452.5,
+        "change_pct": -9.318637274549097,
+        "volume": 12635242,
+        "reasons": [
+          "RSI健康(42.2)",
+          "空方K線:大綠K"
+        ],
+        "patterns": [
+          "大綠K"
+        ]
+      },
+      {
+        "symbol": "3037",
+        "name": "欣興",
+        "market": "TWSE",
+        "score": 1,
+        "close": 1075.0,
+        "change_pct": -9.282700421940929,
+        "volume": 29156081,
+        "reasons": [
+          "RSI健康(45.5)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "5355",
+        "name": "佳總",
+        "market": "TPEx",
+        "score": 1,
+        "close": 6.76,
+        "change_pct": -9.261744966442947,
+        "volume": 138379,
+        "reasons": [
+          "RSI健康(46.1)"
+        ],
+        "patterns": []
+      },
+      {
+        "symbol": "2305",
+        "name": "全友",
+        "market": "TWSE",
+        "score": 1,
+        "close": 57.8,
+        "change_pct": -9.119496855345908,
+        "volume": 14487545,
+        "reasons": [
+          "RSI健康(47.7)"
+        ],
+        "patterns": []
+      }
+    ]
+  },
+  "report": "台股隔日觀察名單 2026-10-15\n資料來源：TWSE / TPEx 公開資料；僅供研究，不是投資建議。\n\n01. 2886 兆豐金 [TWSE] 分數 6 收 52.5 漲跌幅 2.74% 量 46,916,842\n    站上MA20(50.21)；MACD動能轉強；RSI健康(64.3)；上漲放量；多方K線:大紅K\n02. 4961 天鈺 [TWSE] 分數 6 收 186.5 漲跌幅 1.91% 量 1,792,622\n    站上MA20(181.68)；MACD動能轉強；RSI健康(56.8)；上漲放量；多方K線:大紅K\n03. 4924 欣厚-KY [TPEx] 分數 6 收 20.15 漲跌幅 9.81% 量 1,159,250\n    站上MA20(16.21)；MACD動能轉強；RSI健康(55.0)；上漲放量；多方K線:大紅K\n04. 6756 威鋒電子 [TWSE] 分數 6 收 100 漲跌幅 2.77% 量 318,021\n    站上MA20(97.33)；MACD動能轉強；RSI健康(58.7)；上漲放量；多方K線:大紅K\n05. 2380 虹光 [TWSE] 分數 6 收 17.15 漲跌幅 9.94% 量 273,588\n    站上MA20(16.51)；MACD動能轉強；RSI健康(57.8)；上漲放量；多方K線:大紅K、晨星\n06. 3492 長盛 [TPEx] 分數 6 收 19.6 漲跌幅 1.82% 量 32,061\n    站上MA20(19.18)；MACD動能轉強；RSI健康(60.0)；上漲放量；多方K線:大紅K\n07. 2924 宏太-KY [TPEx] 分數 6 收 18.5 漲跌幅 6.02% 量 20,217\n    站上MA20(18.24)；MACD動能轉強；RSI健康(45.0)；上漲放量；多方K線:錘子線\n08. 4904 遠傳 [TWSE] 分數 5 收 113 漲跌幅 4.63% 量 15,938,061\n    站上MA20(106.12)；MACD動能轉強；上漲放量；多方K線:大紅K\n09. 5876 上海商銀 [TWSE] 分數 5 收 53.4 漲跌幅 3.29% 量 13,297,970\n    站上MA20(49.77)；MACD動能轉強；上漲放量；多方K線:大紅K\n10. 2033 佳大 [TWSE] 分數 5 收 54.4 漲跌幅 9.90% 量 3,249,946\n    站上MA20(42.49)；MACD動能轉強；上漲放量；多方K線:大紅K\n11. 2429 銘旺科 [TWSE] 分數 5 收 38.2 漲跌幅 9.30% 量 2,756,838\n    站上MA20(31.47)；MACD動能轉強；上漲放量；多方K線:大紅K\n12. 6925 意藍 [TPEx] 分數 5 收 82.3 漲跌幅 9.88% 量 1,674,384\n    站上MA20(68.33)；MACD動能轉強；上漲放量；多方K線:大紅K\n13. 4426 利勤 [TWSE] 分數 5 收 8.62 漲跌幅 8.02% 量 1,183,222\n    站上MA20(7.69)；MACD動能轉強；上漲放量；多方K線:大紅K\n14. 3485 敘豐 [TPEx] 分數 5 收 248 漲跌幅 9.98% 量 757,656\n    站上MA20(208.88)；MACD動能轉強；上漲放量；多方K線:大紅K\n15. 2850 新產 [TWSE] 分數 5 收 173 漲跌幅 2.98% 量 683,479\n    站上MA20(161.30)；MACD動能轉強；上漲放量；多方K線:大紅K\n16. 1439 雋揚 [TWSE] 分數 5 收 28.95 漲跌幅 1.58% 量 22,458\n    站上MA20(28.57)；MACD動能轉強；RSI健康(46.0)；多方K線:大紅K\n17. 8409 商之器 [TPEx] 分數 5 收 18.4 漲跌幅 1.94% 量 10,023\n    站上MA20(18.05)；MACD動能轉強；RSI健康(59.4)；多方K線:晨星\n18. 5601 台聯櫃 [TPEx] 分數 5 收 32.9 漲跌幅 2.49% 量 6,472\n    站上MA20(30.32)；MACD動能轉強；RSI健康(59.2)；多方K線:大紅K\n19. 2891 中信金 [TWSE] 分數 4 收 72.9 漲跌幅 2.10% 量 77,882,506\n    站上MA20(69.42)；MACD動能轉強；RSI健康(64.3)；上漲放量\n20. 2890 永豐金 [TWSE] 分數 4 收 45.6 漲跌幅 3.52% 量 63,323,507\n    站上MA20(44.80)；MACD動能轉強；RSI健康(51.0)；上漲放量\n21. 2884 玉山金 [TWSE] 分數 4 收 48.8 漲跌幅 3.17% 量 63,086,494\n    站上MA20(45.96)；MACD動能轉強；RSI健康(67.7)；上漲放量\n22. 2885 元大金 [TWSE] 分數 4 收 72.7 漲跌幅 0.69% 量 43,392,893\n    站上MA20(69.47)；MACD動能轉強；RSI健康(58.0)；上漲放量\n23. 6209 今國光 [TWSE] 分數 4 收 93 漲跌幅 3.56% 量 41,803,895\n    站上MA20(83.85)；MACD動能轉強；RSI過熱(84.1)；上漲放量；多方K線:陽包陰\n24. 5880 合庫金 [TWSE] 分數 4 收 27.5 漲跌幅 1.29% 量 39,659,352\n    站上MA20(26.72)；MACD動能轉強；RSI健康(56.5)；上漲放量\n25. 2892 第一金 [TWSE] 分數 4 收 41.6 漲跌幅 2.34% 量 37,121,953\n    站上MA20(39.51)；MACD動能轉強；RSI健康(63.9)；上漲放量\n26. 2801 彰銀 [TWSE] 分數 4 收 29.15 漲跌幅 1.22% 量 26,796,152\n    站上MA20(28.15)；MACD動能轉強；RSI健康(61.8)；上漲放量\n27. 2880 華南金 [TWSE] 分數 4 收 49.65 漲跌幅 1.53% 量 22,673,121\n    站上MA20(46.66)；MACD動能轉強；RSI健康(64.1)；上漲放量\n28. 9904 寶成 [TWSE] 分數 4 收 26.25 漲跌幅 0.57% 量 21,446,343\n    站上MA20(24.98)；MACD動能轉強；多方K線:大紅K\n29. 3045 台灣大 [TWSE] 分數 4 收 131 漲跌幅 3.56% 量 16,412,294\n    站上MA20(123.50)；MACD動能轉強；RSI健康(69.0)；上漲放量\n30. 4977 眾達-KY [TWSE] 分數 4 收 188 漲跌幅 -1.57% 量 16,157,129\n    站上MA20(174.05)；MACD動能轉強；RSI健康(64.5)；上漲放量\n31. 5871 中租-KY [TWSE] 分數 4 收 108.5 漲跌幅 -- 量 16,098,331\n    站上MA20(107.95)；MACD動能轉強；RSI健康(52.6)；上漲放量\n32. 5904 寶雅* [TPEx] 分數 4 收 73.1 漲跌幅 2.09% 量 9,043,058\n    站上MA20(70.74)；MACD動能轉強；RSI健康(59.8)；上漲放量\n33. 6148 驊宏資 [TPEx] 分數 4 收 38.15 漲跌幅 2.55% 量 5,994,344\n    站上MA20(37.95)；MACD動能轉強；RSI健康(47.7)；上漲放量\n34. 2851 中再保 [TWSE] 分數 4 收 53.2 漲跌幅 2.50% 量 4,646,813\n    站上MA20(47.71)；MACD動能轉強；多方K線:大紅K\n35. 6885 全福生技 [TWSE] 分數 4 收 33.5 漲跌幅 5.02% 量 4,115,184\n    站上MA20(30.21)；MACD動能轉強；RSI健康(65.1)；上漲放量\n36. 3663 鑫科 [TPEx] 分數 4 收 68.5 漲跌幅 2.85% 量 3,636,700\n    站上MA20(62.79)；MACD動能轉強；RSI健康(67.0)；上漲放量\n37. 9914 美利達 [TWSE] 分數 4 收 68.6 漲跌幅 2.85% 量 3,377,397\n    站上MA20(67.42)；MACD動能轉強；RSI健康(57.9)；上漲放量\n38. 2206 三陽工業 [TWSE] 分數 4 收 65.3 漲跌幅 1.71% 量 2,414,279\n    站上MA20(63.45)；MACD動能轉強；RSI健康(62.7)；上漲放量\n39. 2458 義隆 [TWSE] 分數 4 收 135.5 漲跌幅 1.50% 量 2,392,200\n    站上MA20(132.95)；MACD動能轉強；RSI健康(62.0)；上漲放量\n40. 9921 巨大 [TWSE] 分數 4 收 93.4 漲跌幅 1.41% 量 2,172,857\n    站上MA20(91.34)；MACD動能轉強；RSI健康(59.4)；上漲放量\n41. 6416 瑞祺電通 [TWSE] 分數 4 收 121 漲跌幅 2.11% 量 1,701,062\n    站上MA20(118.72)；MACD動能轉強；RSI健康(58.5)；上漲放量\n42. 3002 歐格 [TWSE] 分數 4 收 19.35 漲跌幅 2.11% 量 1,293,648\n    站上MA20(18.95)；MACD動能轉強；RSI健康(48.2)；上漲放量\n43. 6782 視陽 [TWSE] 分數 4 收 251 漲跌幅 2.66% 量 1,190,683\n    站上MA20(238.38)；MACD動能轉強；RSI健康(59.9)；上漲放量\n44. 2727 王品 [TWSE] 分數 4 收 246 漲跌幅 1.65% 量 1,121,242\n    站上MA20(233.72)；MACD動能轉強；RSI過熱(87.5)；上漲放量；多方K線:大紅K\n45. 8464 億豐 [TWSE] 分數 4 收 373 漲跌幅 1.63% 量 878,300\n    站上MA20(369.95)；MACD動能轉強；RSI健康(47.6)；上漲放量\n46. 2505 國揚 [TWSE] 分數 4 收 18.05 漲跌幅 1.98% 量 822,041\n    站上MA20(17.18)；MACD動能轉強；RSI過熱(80.0)；上漲放量；多方K線:大紅K\n47. 2015 豐興 [TWSE] 分數 4 收 66.1 漲跌幅 2.48% 量 720,321\n    站上MA20(64.45)；MACD動能轉強；RSI健康(63.4)；上漲放量\n48. 6670 復盛應用 [TWSE] 分數 4 收 274 漲跌幅 1.48% 量 496,732\n    站上MA20(272.02)；MACD動能轉強；RSI健康(54.3)；上漲放量\n49. 4109 加捷生醫 [TPEx] 分數 4 收 11.2 漲跌幅 1.82% 量 428,775\n    站上MA20(11.05)；MACD動能轉強；RSI健康(55.6)；上漲放量\n50. 1707 葡萄王 [TWSE] 分數 4 收 87.7 漲跌幅 1.62% 量 385,615\n    站上MA20(86.13)；MACD動能轉強；RSI健康(56.1)；上漲放量",
+  "generated_at": "2026-10-15T20:42:41+08:00"
+}
